@@ -6,6 +6,7 @@ import dagger.Binds
 import dagger.MapKey
 import dagger.Module
 import dagger.multibindings.IntoMap
+import io.imhungry.viewmodel.MainViewModel
 import javax.inject.Inject
 import javax.inject.Provider
 import javax.inject.Singleton
@@ -36,6 +37,11 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(X::class)
-    internal abstract fun postListViewModel(viewModel: X): ViewModel
+    internal abstract fun xViewModel(viewModel: X): ViewModel
     */
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MainViewModel::class)
+    internal abstract fun mainViewModel(viewModel: MainViewModel): ViewModel
 }

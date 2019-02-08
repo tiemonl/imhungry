@@ -5,12 +5,8 @@ import dagger.Component
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
 import io.imhungry.MainApplication
-import io.imhungry.di.ActivityModule
-import io.imhungry.di.ViewModelModule
 import io.imhungry.db.ImhungryDao
 import io.imhungry.db.ImhungryDatabase
-import io.imhungry.di.AppModule
-import io.imhungry.di.RoomModule
 import javax.inject.Singleton
 
 @Singleton

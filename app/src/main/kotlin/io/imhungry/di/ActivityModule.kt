@@ -2,6 +2,7 @@ package io.imhungry.di
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import io.imhungry.ui.MainActivity
 
 @Module
 abstract class ActivityModule {
@@ -13,4 +14,7 @@ abstract class ActivityModule {
     @ContributesAndroidInjector
     abstract fun contributeXInjector(): X
     */
+
+    @ContributesAndroidInjector
+    abstract fun contributeMainActivityInjector(): MainActivity
 }
