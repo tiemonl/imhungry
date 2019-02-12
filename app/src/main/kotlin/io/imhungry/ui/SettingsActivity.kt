@@ -1,8 +1,7 @@
 package io.imhungry.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
+import androidx.appcompat.app.AppCompatActivity
 import io.imhungry.R
 
 class SettingsActivity : AppCompatActivity() {
