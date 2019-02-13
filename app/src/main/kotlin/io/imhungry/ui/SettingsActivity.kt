@@ -9,6 +9,6 @@ class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
-        title = getString(R.string.settings)
+        title = getString(R.string.action_bar_settings_label)
     }
 }
