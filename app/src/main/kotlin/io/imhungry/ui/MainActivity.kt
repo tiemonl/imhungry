@@ -29,11 +29,11 @@ class MainActivity : AppCompatActivity() {
         return true;
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item != null && item.itemId == R.id.settingsGear){
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.settingsGear -> {
             startActivity(Intent(this, SettingsActivity::class.java))
-            return true
+            true
         }
-        return false;
+        else -> false
     }
 }
