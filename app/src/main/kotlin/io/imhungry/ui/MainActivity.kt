@@ -2,6 +2,7 @@ package io.imhungry.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import androidx.lifecycle.ViewModelProvider
 import dagger.android.AndroidInjection
 import io.imhungry.R
@@ -19,5 +20,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         AndroidInjection.inject(this)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.action_bar_options, menu)
+        return true;
     }
 }
