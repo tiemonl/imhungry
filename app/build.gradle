@@ -63,4 +63,6 @@ dependencies {
     implementation "com.google.dagger:dagger-android:$rootProject.dagger"
     kapt "com.google.dagger:dagger-android-processor:$rootProject.dagger"
     kapt "com.google.dagger:dagger-compiler:$rootProject.dagger"
+
+    testImplementation 'org.mockito:mockito-inline:2.8.47'
 }
