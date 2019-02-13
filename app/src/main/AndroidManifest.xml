@@ -21,7 +21,7 @@
         <!-- Set parent as MainActivity to enable app bar back button -->
         <activity
             android:name=".ui.SettingsActivity"
-            android:parentActivityName=".ui.MainActivity"></activity>
+            android:parentActivityName=".ui.MainActivity"/>
     </application>
 
 </manifest>
