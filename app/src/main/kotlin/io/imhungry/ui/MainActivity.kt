@@ -1,39 +1,31 @@
 package io.imhungry.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import dagger.android.AndroidInjection
+import io.imhungry.R.string
 import io.imhungry.R
-import io.imhungry.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
+    private lateinit var auth: FirebaseAuth
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var mainViewModel: MainViewModel
-    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        emailSignInButton.setOnClickListener(this)
-        emailCreateAccountButton.setOnClickListener(this)
-        signOutButton.setOnClickListener(this)
-        verifyEmailButton.setOnClickListener(this)
-
-// Initialize Firebase Auth
+        // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()
-        AndroidInjection.inject(this)
     }
 
     public override fun onStart() {
@@ -44,30 +36,41 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun createAccount(email: String, password: String) {
-        Log.d(TAG, "createAccount:$email")
+
         if (!validateForm()) {
             return
         }
 
-
-        // [START create_user_with_email]
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "createUserWithEmail:success")
                     val user = auth.currentUser
                     updateUI(user)
                 } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
                     Toast.makeText(baseContext, "Authentication failed.",
                         Toast.LENGTH_SHORT).show()
                     updateUI(null)
                 }
 
             }
-        // [END create_user_with_email]
+    }
+
+    private fun signIn(email: String, password: String) {
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val user = auth.currentUser
+                    updateUI(user)
+                } else {
+                    Toast.makeText(baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT).show()
+                    updateUI(null)
+                }
+
+                if (!task.isSuccessful) {
+                    status.setText(R.string.auth_failed)
+                }
+            }
     }
 
     private fun signOut() {
@@ -75,49 +78,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         updateUI(null)
     }
 
-    private fun signIn(email: String, password: String) {
-        Log.d(TAG, "signIn:$email")
-        if (!validateForm()) {
-            return
-        }
-
-
-        // [START sign_in_with_email]
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "signInWithEmail:success")
-                    val user = auth.currentUser
-                    updateUI(user)
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "signInWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
-                    updateUI(null)
-                }
-
-                // [START_EXCLUDE]
-                if (!task.isSuccessful) {
-                    status.setText(R.string.auth_failed)
-                }
-                // [END_EXCLUDE]
-            }
-        // [END sign_in_with_email]
-    }
-
     private fun sendEmailVerification() {
-        // Disable button
         verifyEmailButton.isEnabled = false
 
-        // Send verification email
-        // [START send_email_verification]
         val user = auth.currentUser
         user?.sendEmailVerification()
             ?.addOnCompleteListener(this) { task ->
-                // [START_EXCLUDE]
-                // Re-enable button
                 verifyEmailButton.isEnabled = true
 
                 if (task.isSuccessful) {
@@ -125,35 +91,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         "Verification email sent to ${user.email} ",
                         Toast.LENGTH_SHORT).show()
                 } else {
-                    Log.e(TAG, "sendEmailVerification", task.exception)
                     Toast.makeText(baseContext,
                         "Failed to send verification email.",
                         Toast.LENGTH_SHORT).show()
                 }
-                // [END_EXCLUDE]
             }
-        // [END send_email_verification]
-    }
-
-    private fun updateUI(user: FirebaseUser?) {
-        if (user != null) {
-            status.text = getString(R.string.emailpassword_status_fmt,
-                user.email, user.isEmailVerified)
-            detail.text = getString(R.string.firebase_status_fmt, user.uid)
-
-            emailPasswordButtons.visibility = View.GONE
-            emailPasswordFields.visibility = View.GONE
-            signedInButtons.visibility = View.VISIBLE
-
-            verifyEmailButton.isEnabled = !user.isEmailVerified
-        } else {
-            status.setText(R.string.signed_out)
-            detail.text = null
-
-            emailPasswordButtons.visibility = View.VISIBLE
-            emailPasswordFields.visibility = View.VISIBLE
-            signedInButtons.visibility = View.GONE
-        }
     }
 
     private fun validateForm(): Boolean {
@@ -178,6 +120,27 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         return valid
     }
 
+    private fun updateUI(user: FirebaseUser?) {
+        if (user != null) {
+            status.text = getString(R.string.emailpassword_status_fmt,
+                user.email, user.isEmailVerified)
+            detail.text = getString(R.string.firebase_status_fmt, user.uid)
+
+            emailPasswordButtons.visibility = View.GONE
+            emailPasswordFields.visibility = View.GONE
+            signedInButtons.visibility = View.VISIBLE
+
+            verifyEmailButton.isEnabled = !user.isEmailVerified
+        } else {
+            status.setText(R.string.signed_out)
+            detail.text = null
+
+            emailPasswordButtons.visibility = View.VISIBLE
+            emailPasswordFields.visibility = View.VISIBLE
+            signedInButtons.visibility = View.GONE
+        }
+    }
+
     override fun onClick(v: View) {
         val i = v.id
         when (i) {
@@ -191,4 +154,5 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     companion object {
         private const val TAG = "EmailPassword"
     }
+
 }
