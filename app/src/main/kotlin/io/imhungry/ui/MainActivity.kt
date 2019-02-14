@@ -2,13 +2,13 @@ package io.imhungry.ui
 
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import io.imhungry.R.string
 import io.imhungry.R
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -26,6 +26,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()
+
+        emailSignInButton.setOnClickListener(this)
+        emailCreateAccountButton.setOnClickListener(this)
+        signOutButton.setOnClickListener(this)
+        verifyEmailButton.setOnClickListener(this)
     }
 
     public override fun onStart() {
@@ -36,36 +41,44 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun createAccount(email: String, password: String) {
-
+        Log.d(TAG, "createAccount:$email")
         if (!validateForm()) {
             return
         }
 
         auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    val user = auth.currentUser
-                    updateUI(user)
-                } else {
-                    Toast.makeText(baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
-                    updateUI(null)
-                }
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        Log.d(TAG, "createUserWithEmail:success")
+                        val user = auth.currentUser
+                        updateUI(user)
+                    } else {
+                        Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                        Toast.makeText(baseContext, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show()
+                        updateUI(null)
+                    }
 
             }
     }
 
     private fun signIn(email: String, password: String) {
+        Log.d(TAG, "signIn:$email")
+        if (!validateForm()) {
+            return
+        }
         auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    val user = auth.currentUser
-                    updateUI(user)
-                } else {
-                    Toast.makeText(baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
-                    updateUI(null)
-                }
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        Log.d(TAG, "signInWithEmail:success")
+                        val user = auth.currentUser
+                        updateUI(user)
+                    } else {
+                        Log.w(TAG, "signInWithEmail:failure", task.exception)
+                        Toast.makeText(baseContext, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show()
+                        updateUI(null)
+                    }
 
                 if (!task.isSuccessful) {
                     status.setText(R.string.auth_failed)
@@ -86,16 +99,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             ?.addOnCompleteListener(this) { task ->
                 verifyEmailButton.isEnabled = true
 
-                if (task.isSuccessful) {
-                    Toast.makeText(baseContext,
-                        "Verification email sent to ${user.email} ",
-                        Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(baseContext,
-                        "Failed to send verification email.",
-                        Toast.LENGTH_SHORT).show()
+                    if (task.isSuccessful) {
+                        Toast.makeText(baseContext,
+                                "Verification email sent to ${user.email} ",
+                                Toast.LENGTH_SHORT).show()
+                    } else {
+                        Log.e(TAG, "sendEmailVerification", task.exception)
+                        Toast.makeText(baseContext,
+                                "Failed to send verification email.",
+                                Toast.LENGTH_SHORT).show()
+                    }
                 }
-            }
     }
 
     private fun validateForm(): Boolean {

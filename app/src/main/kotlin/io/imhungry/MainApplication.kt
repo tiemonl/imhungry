@@ -26,6 +26,7 @@ class MainApplication: Application(), HasActivityInjector {
 
     override fun onCreate() {
         super.onCreate()
+        FirebaseApp.initializeApp(this)
         component.inject(this)
     }
 
