@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">imhungry</string>
+
+    <!--Firebase auth strings-->
     <string name="hint_user_id">User ID</string>
     <string name="get_custom_token">Get Token</string>
     <string name="sign_in">Sign In</string>
