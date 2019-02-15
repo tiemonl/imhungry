@@ -2,6 +2,7 @@ package io.imhungry
 
 import android.app.Activity
 import android.app.Application
+import com.google.firebase.FirebaseApp
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
@@ -25,6 +26,7 @@ class MainApplication: Application(), HasActivityInjector {
 
     override fun onCreate() {
         super.onCreate()
+        FirebaseApp.initializeApp(this)
         component.inject(this)
     }
 
