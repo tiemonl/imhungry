@@ -1,11 +1,14 @@
 package io.imhungry.ui
 
-import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -169,4 +172,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         private const val TAG = "EmailPassword"
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.action_bar_options, menu)
+        return true;
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.settingsGear -> {
+            startActivity(Intent(this, SettingsActivity::class.java))
+            true
+        }
+        else -> false
+    }
 }
