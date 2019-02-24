@@ -4,9 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import io.imhungry.model.DummyEntity
+import io.imhungry.model.RestaurantEntity
+import io.imhungry.model.RestaurantTagEntity
+import io.imhungry.model.TagEntity
 
-@Database(entities = [DummyEntity::class], version = 1) // TODO Replace and remove DummyEntity with proper class
+@Database(entities = [TagEntity::class, RestaurantEntity::class, RestaurantTagEntity::class], version = 1)
 abstract class ImhungryDatabase : RoomDatabase() {
     abstract val imhungryDao: ImhungryDao
 

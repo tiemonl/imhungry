@@ -5,6 +5,7 @@ import dagger.Module
 import dagger.Provides
 import io.imhungry.db.ImhungryDao
 import io.imhungry.db.ImhungryDatabase
+import io.imhungry.db.ImhungryRepository
 import javax.inject.Singleton
 
 @Module
@@ -21,5 +22,5 @@ class RoomModule(application: Application) {
 
     @Singleton
     @Provides
-    fun providesImhungryRepository(imhungryDao: ImhungryDao): Nothing = TODO("Add repository initialization here")
+    fun providesImhungryRepository(imhungryDao: ImhungryDao) = ImhungryRepository(imhungryDao)
 }
