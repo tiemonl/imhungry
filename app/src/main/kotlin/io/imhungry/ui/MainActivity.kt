@@ -1,29 +1,37 @@
 package io.imhungry.ui
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import androidx.lifecycle.ViewModelProvider
-import dagger.android.AndroidInjection
+import android.view.MenuItem
+import com.google.firebase.auth.FirebaseAuth
 import io.imhungry.R
-import io.imhungry.viewmodel.MainViewModel
-import javax.inject.Inject
+import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var mainViewModel: MainViewModel
+    private val auth by lazy { FirebaseAuth.getInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        AndroidInjection.inject(this)
+        btnLogout.setOnClickListener {
+            auth.signOut()
+            finish()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.action_bar_options, menu)
         return true;
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.settingsGear -> {
+            startActivity(Intent(this, SettingsActivity::class.java))
+            true
+        }
+        else -> false
     }
 }
