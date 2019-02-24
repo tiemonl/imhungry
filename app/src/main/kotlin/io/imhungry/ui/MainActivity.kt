@@ -6,6 +6,7 @@ import android.view.Menu
 import androidx.lifecycle.ViewModelProvider
 import dagger.android.AndroidInjection
 import io.imhungry.R
+import io.imhungry.notifications.NotificationHelper
 import io.imhungry.viewmodel.MainViewModel
 import javax.inject.Inject
 
@@ -20,6 +21,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         AndroidInjection.inject(this)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        NotificationHelper(this).sendNotificationNow("Welcome!", "We hope you're hungry!", null, NotificationHelper.Priority.DEFAULT, 0)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
