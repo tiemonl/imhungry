@@ -8,9 +8,12 @@ import android.os.Bundle
 import android.os.Looper
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -20,21 +23,25 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import io.imhungry.GoogleAPI.IGoogleAPIService
-import io.imhungry.GoogleAPI.initiateGoogleAPIService
 import io.imhungry.R
-import io.imhungry.model.RootObject
+import io.imhungry.maps.ui.adapters.MapItemAdapter
+import io.imhungry.maps.vm.MapViewModel
+import io.imhungry.ui.BaseActivity
 import kotlinx.android.synthetic.main.activity_map.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
 
-class MyMapsActivity : AppCompatActivity(), OnMapReadyCallback {
+class MyMapsActivity : BaseActivity(), OnMapReadyCallback {
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private lateinit var mapViewModel: MapViewModel
 
     //For Current Location
-    private lateinit var mMap: GoogleMap
+    private lateinit var map: GoogleMap
     private var currentLatitude = 0.0
     private var currentLongitude = 0.0
     private lateinit var lastLocation: Location
@@ -43,17 +50,9 @@ class MyMapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
 
-    companion object {
-        private const val MY_PERMISSION_CODE: Int = 1000
-    }
-
-    //For Nearby Places
-    lateinit var googleAPIService: IGoogleAPIService
-    internal lateinit var nearbyPlaces: RootObject
-
 
     override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
+        map = googleMap
 
         //Init Google Play Services
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -62,16 +61,13 @@ class MyMapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     android.Manifest.permission.ACCESS_FINE_LOCATION
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
-                mMap!!.isMyLocationEnabled = true
+                map.isMyLocationEnabled = true
             }
         } else {
-            mMap!!.isMyLocationEnabled = true
+            map.isMyLocationEnabled = true
         }
-
         //Enable Zoom Control
-        mMap.uiSettings.isZoomControlsEnabled = true
-
-
+        map.uiSettings.isZoomControlsEnabled = true
     }
 
 
@@ -79,12 +75,12 @@ class MyMapsActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
 
-        // Notify when the map is ready to be used.
-        val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        val mapFragment = SupportMapFragment()
+        supportFragmentManager.beginTransaction().add(R.id.mapFragmentHolder, mapFragment).commit()
         mapFragment.getMapAsync(this)
 
-        //Init Service
-        googleAPIService = initiateGoogleAPIService.googleAPIService
+        mapItems.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        mapItems.adapter = MapItemAdapter(this, mapViewModel.mapData)
 
         //Request runtime permission
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -101,6 +97,16 @@ class MyMapsActivity : AppCompatActivity(), OnMapReadyCallback {
             fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
         }
 
+        mapViewModel.mapData.observe(this, Observer { results ->
+            for (result in results) {
+                map.addMarker(
+                    MarkerOptions()
+                        .position(result.geometry.location.let { LatLng(it.lat, it.lng) })
+                        .title(result.name)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                )
+            }
+        })
     }
 
 
@@ -108,7 +114,7 @@ class MyMapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun buildLocationCallBack() {
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(p0: LocationResult?) {
-                lastLocation = p0!!.locations[p0!!.locations.size - 1]
+                lastLocation = p0!!.locations[p0.locations.size - 1]
 
                 if (mapMarker != null) {
                     mapMarker!!.remove()
@@ -118,15 +124,14 @@ class MyMapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 currentLongitude = lastLocation.longitude
 
                 val latLng = LatLng(currentLatitude, currentLongitude)
-                mMap.addMarker(
+                map.addMarker(
                     MarkerOptions()
                         .position(latLng)
                         .title("You are here")
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-                )
-                    .showInfoWindow()
-                mMap!!.moveCamera(CameraUpdateFactory.newLatLng(latLng))
-                mMap!!.animateCamera(CameraUpdateFactory.zoomTo(14f))
+                ).showInfoWindow()
+                map.moveCamera(CameraUpdateFactory.newLatLng(latLng))
+                map.animateCamera(CameraUpdateFactory.zoomTo(14f))
 
                 //Get Nearby Places
                 nearByPlaces("restaurant")
@@ -190,7 +195,7 @@ class MyMapsActivity : AppCompatActivity(), OnMapReadyCallback {
                                 locationCallback,
                                 Looper.myLooper()
                             )
-                            mMap!!.isMyLocationEnabled = true
+                            map!!.isMyLocationEnabled = true
                         }
                     }
                 } else {
@@ -205,94 +210,7 @@ class MyMapsActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onStop()
     }
 
-    //Get Nearby Places
-    private fun nearByPlaces(typePlace: String) {
-
-        //Clear all markers
-        //mMap.clear()
-
-        //build URL request base on location
-        val url = getUrl(currentLatitude, currentLongitude, typePlace)
-
-        googleAPIService.getNearbyPlaces(url)
-            .enqueue(object : Callback<RootObject> {
-                override fun onFailure(call: Call<RootObject>, t: Throwable) {
-                    Toast.makeText(baseContext, "" + t!!.message, Toast.LENGTH_LONG).show()
-                }
-
-                override fun onResponse(call: Call<RootObject>, response: Response<RootObject>) {
-                    nearbyPlaces = response!!.body()!!
-
-                    if (response!!.isSuccessful) {
-
-                        //Log.d("SAM", nearbyPlaces.results!!.size.toString())
-                        //Store All information that probably use later
-                        val totalFoundPlaces = nearbyPlaces.results!!.size
-                        val arrayName = ArrayList<String>()
-                        val arrayOpeningNow = ArrayList<Boolean>()
-                        val arrayPriceLevel = ArrayList<Int>()
-                        val arrayRating = ArrayList<Double>()
-                        val arrayType = ArrayList<Array<String>>()
-                        val arrayTotalRating = ArrayList<Int>()
-                        val arrayVicinity = ArrayList<String>()
-                        val arrayLatitude = ArrayList<Double>()
-                        val arrayLongitude = ArrayList<Double>()
-
-                        for (i in 0 until response!!.body()!!.results!!.size) {
-                            val jsonResults = response.body()!!.results!![i]
-
-                            //arrayName.add("${i + 1}. ${jsonResults.name}")
-                            arrayOpeningNow.add(jsonResults.opening_hours!!.open_now!!)
-                            arrayPriceLevel.add(jsonResults.price_level)
-                            arrayRating.add(jsonResults.rating)
-                            arrayType.add(jsonResults.types!!)
-                            arrayTotalRating.add(jsonResults.user_ratings_total)
-                            arrayVicinity.add(jsonResults.vicinity!!)
-                            arrayLatitude.add(jsonResults.geometry!!.location!!.lat)
-                            arrayLongitude.add(jsonResults.geometry!!.location!!.lng)
-
-                            //Calcuate Distance between current location and found location
-                            val foundLocation = Location("")
-                            foundLocation.latitude = arrayLatitude[i]
-                            foundLocation.longitude = arrayLongitude[i]
-
-                            val currentLocation = Location("")
-                            currentLocation.latitude = currentLatitude
-                            currentLocation.longitude = currentLongitude
-
-                            //Convert from Meter to Mile: 0.000621371
-                            val distanceInMiles = "%.2f".format(foundLocation.distanceTo(currentLocation) * 0.000621371)
-                            arrayName.add("${i + 1}. ${jsonResults.name} (Distance: $distanceInMiles mile)")
-                        }
-
-                        //Add Markers on Map
-                        val total = arrayName.count() - 1
-                        for (i in 0..total) {
-                            mMap.addMarker(
-                                MarkerOptions()
-                                    .position(LatLng(arrayLatitude[i], arrayLongitude[i]))
-                                    .title(arrayName[i])
-                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-                            )
-                        }
-
-                        //Paste Results into ListView
-                        myListView.adapter = ArrayAdapter<String>(
-                            this@MyMapsActivity,
-                            android.R.layout.simple_list_item_1,
-                            arrayName
-                        )
-
-                        //On Click Listener
-                        myListView.setOnItemClickListener { parent, view, position, id ->
-                            Toast.makeText(
-                                this@MyMapsActivity,
-                                "Restaurant Name: ${arrayName[position]}",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-                    }
-                }
-            })
+    companion object {
+        private const val MY_PERMISSION_CODE: Int = 1000
     }
 }
