@@ -7,6 +7,7 @@ import dagger.android.AndroidInjector
 import io.imhungry.MainApplication
 import io.imhungry.db.ImhungryDao
 import io.imhungry.db.ImhungryDatabase
+import io.imhungry.db.ImhungryRepository
 import io.imhungry.maps.di.MapsModule
 import javax.inject.Singleton
 
@@ -28,8 +29,7 @@ interface AppComponent : AndroidInjector<MainApplication> {
 
     fun imhungryDatabase(): ImhungryDatabase
 
-    // TODO Add repository here
-    // fun imhungryRepository(): ImhungryRepository
+    fun imhungryRepository(): ImhungryRepository
 
     fun application(): Application
 }
