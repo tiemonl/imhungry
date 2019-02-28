@@ -1,13 +1,16 @@
 package io.imhungry.maps.di
 
-import com.google.maps.GeoApiContext
+import androidx.lifecycle.ViewModel
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
+import dagger.multibindings.IntoMap
+import io.imhungry.di.ViewModelKey
+import io.imhungry.maps.vm.MapViewModel
 
-@Module
-class MapsModule {
-    @Provides
-    fun provideGeoContext() = GeoApiContext.Builder()
-        .apiKey("")
-        .build()
+@Module(includes = [MapsProviderModule::class])
+abstract class MapsModule {
+    @Binds
+    @IntoMap
+    @ViewModelKey(MapViewModel::class)
+    internal abstract fun mapViewModel(viewModel: MapViewModel): ViewModel
 }
