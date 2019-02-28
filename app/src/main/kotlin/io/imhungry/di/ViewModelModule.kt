@@ -30,16 +30,6 @@ abstract class ViewModelModule {
     @Binds
     internal abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 
-    /*
-
-    This is how to add a ViewModel to be used for injection. Simply copy below, replace X with the ViewModel class you have.
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(X::class)
-    internal abstract fun xViewModel(viewModel: X): ViewModel
-    */
-
     @Binds
     @IntoMap
     @ViewModelKey(MainViewModel::class)

@@ -12,7 +12,7 @@ import io.imhungry.di.DaggerAppComponent
 import io.imhungry.di.RoomModule
 import javax.inject.Inject
 
-class MainApplication: Application(), HasActivityInjector {
+class MainApplication : Application(), HasActivityInjector {
 
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
