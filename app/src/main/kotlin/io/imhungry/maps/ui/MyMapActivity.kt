@@ -1,13 +1,6 @@
-package io.imhungry.ui
+package io.imhungry.maps.ui
 
 
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import com.google.android.gms.location.*
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Build
@@ -16,19 +9,25 @@ import android.os.Looper
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import io.imhungry.GoogleAPI.IGoogleAPIService
 import io.imhungry.GoogleAPI.initiateGoogleAPIService
+import io.imhungry.R
 import io.imhungry.model.RootObject
 import kotlinx.android.synthetic.main.activity_map.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.StringBuilder
-import io.imhungry.R
 
 
 class MyMapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -43,6 +42,7 @@ class MyMapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
+
     companion object {
         private const val MY_PERMISSION_CODE: Int = 1000
     }
@@ -56,8 +56,12 @@ class MyMapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
 
         //Init Google Play Services
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
                 mMap!!.isMyLocationEnabled = true
             }
         } else {
@@ -68,9 +72,7 @@ class MyMapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.uiSettings.isZoomControlsEnabled = true
 
 
-
     }
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,7 +87,7 @@ class MyMapsActivity : AppCompatActivity(), OnMapReadyCallback {
         googleAPIService = initiateGoogleAPIService.googleAPIService
 
         //Request runtime permission
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             if (checkLocationPermission()) {
                 buildLocationRequest()
                 buildLocationCallBack()
@@ -102,14 +104,13 @@ class MyMapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
 
-
     //Get Current Location
     private fun buildLocationCallBack() {
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(p0: LocationResult?) {
                 lastLocation = p0!!.locations[p0!!.locations.size - 1]
 
-                if(mapMarker != null) {
+                if (mapMarker != null) {
                     mapMarker!!.remove()
                 }
 
@@ -121,15 +122,14 @@ class MyMapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     MarkerOptions()
                         .position(latLng)
                         .title("You are here")
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                )
                     .showInfoWindow()
                 mMap!!.moveCamera(CameraUpdateFactory.newLatLng(latLng))
                 mMap!!.animateCamera(CameraUpdateFactory.zoomTo(14f))
 
-
                 //Get Nearby Places
                 nearByPlaces("restaurant")
-
             }
         }
     }
@@ -143,15 +143,27 @@ class MyMapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun checkLocationPermission(): Boolean {
-        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            if(ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.ACCESS_FINE_LOCATION)) {
-                ActivityCompat.requestPermissions(this, arrayOf(
+        if (ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    this,
                     android.Manifest.permission.ACCESS_FINE_LOCATION
-                ), MY_PERMISSION_CODE)
+                )
+            ) {
+                ActivityCompat.requestPermissions(
+                    this, arrayOf(
+                        android.Manifest.permission.ACCESS_FINE_LOCATION
+                    ), MY_PERMISSION_CODE
+                )
             } else {
-                ActivityCompat.requestPermissions(this, arrayOf(
-                    android.Manifest.permission.ACCESS_FINE_LOCATION
-                ), MY_PERMISSION_CODE)
+                ActivityCompat.requestPermissions(
+                    this, arrayOf(
+                        android.Manifest.permission.ACCESS_FINE_LOCATION
+                    ), MY_PERMISSION_CODE
+                )
             }
             return false
 
@@ -161,15 +173,23 @@ class MyMapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        when(requestCode) {
+        when (requestCode) {
             MY_PERMISSION_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(
+                            this,
+                            android.Manifest.permission.ACCESS_FINE_LOCATION
+                        ) == PackageManager.PERMISSION_GRANTED
+                    ) {
                         if (checkLocationPermission()) {
                             buildLocationRequest()
                             buildLocationCallBack()
                             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-                            fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
+                            fusedLocationProviderClient.requestLocationUpdates(
+                                locationRequest,
+                                locationCallback,
+                                Looper.myLooper()
+                            )
                             mMap!!.isMyLocationEnabled = true
                         }
                     }
@@ -180,15 +200,10 @@ class MyMapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-
     override fun onStop() {
         fusedLocationProviderClient.removeLocationUpdates(locationCallback)
         super.onStop()
     }
-
-
-
-
 
     //Get Nearby Places
     private fun nearByPlaces(typePlace: String) {
@@ -199,18 +214,16 @@ class MyMapsActivity : AppCompatActivity(), OnMapReadyCallback {
         //build URL request base on location
         val url = getUrl(currentLatitude, currentLongitude, typePlace)
 
-
-
         googleAPIService.getNearbyPlaces(url)
-            .enqueue(object: Callback<RootObject> {
+            .enqueue(object : Callback<RootObject> {
                 override fun onFailure(call: Call<RootObject>, t: Throwable) {
-                    Toast.makeText(baseContext,"" + t!!.message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(baseContext, "" + t!!.message, Toast.LENGTH_LONG).show()
                 }
 
                 override fun onResponse(call: Call<RootObject>, response: Response<RootObject>) {
                     nearbyPlaces = response!!.body()!!
 
-                    if(response!!.isSuccessful) {
+                    if (response!!.isSuccessful) {
 
                         //Log.d("SAM", nearbyPlaces.results!!.size.toString())
                         //Store All information that probably use later
@@ -225,7 +238,7 @@ class MyMapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         val arrayLatitude = ArrayList<Double>()
                         val arrayLongitude = ArrayList<Double>()
 
-                        for(i in 0 until response!!.body()!!.results!!.size) {
+                        for (i in 0 until response!!.body()!!.results!!.size) {
                             val jsonResults = response.body()!!.results!![i]
 
                             //arrayName.add("${i + 1}. ${jsonResults.name}")
@@ -237,7 +250,6 @@ class MyMapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             arrayVicinity.add(jsonResults.vicinity!!)
                             arrayLatitude.add(jsonResults.geometry!!.location!!.lat)
                             arrayLongitude.add(jsonResults.geometry!!.location!!.lng)
-
 
                             //Calcuate Distance between current location and found location
                             val foundLocation = Location("")
@@ -253,8 +265,6 @@ class MyMapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             arrayName.add("${i + 1}. ${jsonResults.name} (Distance: $distanceInMiles mile)")
                         }
 
-
-
                         //Add Markers on Map
                         val total = arrayName.count() - 1
                         for (i in 0..total) {
@@ -262,9 +272,9 @@ class MyMapsActivity : AppCompatActivity(), OnMapReadyCallback {
                                 MarkerOptions()
                                     .position(LatLng(arrayLatitude[i], arrayLongitude[i]))
                                     .title(arrayName[i])
-                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)))
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                            )
                         }
-
 
                         //Paste Results into ListView
                         myListView.adapter = ArrayAdapter<String>(
@@ -273,31 +283,16 @@ class MyMapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             arrayName
                         )
 
-
                         //On Click Listener
                         myListView.setOnItemClickListener { parent, view, position, id ->
-                            Toast.makeText(this@MyMapsActivity, "Restaurant Name: ${arrayName[position]}", Toast.LENGTH_LONG).show()
+                            Toast.makeText(
+                                this@MyMapsActivity,
+                                "Restaurant Name: ${arrayName[position]}",
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
-
                     }
                 }
-
             })
-
-
     }
-
-
-
-    private fun getUrl(latitude: Double, longitude: Double, typePlace: String): String {
-        val googlePlaceUrl = StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json")
-        googlePlaceUrl.append("?location=$latitude,$longitude")
-        googlePlaceUrl.append("&radius=2000")  //2km
-        googlePlaceUrl.append("&type=$typePlace")
-        googlePlaceUrl.append("&key=${getString(R.string.google_maps_key)}")
-
-        return googlePlaceUrl.toString()
-    }
-
-
 }

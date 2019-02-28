@@ -6,6 +6,8 @@ import android.view.Menu
 import android.view.MenuItem
 import com.google.firebase.auth.FirebaseAuth
 import io.imhungry.R
+import io.imhungry.maps.ui.MyMapsActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
@@ -15,13 +17,12 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btnLogout.setOnClickListener {
+        logoutButton.setOnClickListener {
             auth.signOut()
             finish()
         }
 
-
-        btnMapActivity.setOnClickListener {
+        mapButton.setOnClickListener {
             startActivity(Intent(this, MyMapsActivity::class.java))
         }
     }
