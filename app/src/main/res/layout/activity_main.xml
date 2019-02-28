@@ -10,8 +10,14 @@
         android:text="You are logged in!" />
 
     <Button
-        android:id="@+id/btnLogout"
+        android:id="@+id/logoutButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Log Out!" />
+
+    <Button
+        android:id="@+id/mapButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Open Map" />
 </LinearLayout>

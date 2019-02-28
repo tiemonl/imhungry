@@ -60,3 +60,6 @@ fastlane/readme.md
 
 # Room
 app/schemas/*
+
+# Google Maps API
+google_maps_api.xml
