@@ -65,6 +65,9 @@ dependencies {
     implementation "com.google.dagger:dagger-android:$rootProject.dagger"
     kapt "com.google.dagger:dagger-android-processor:$rootProject.dagger"
     kapt "com.google.dagger:dagger-compiler:$rootProject.dagger"
+
+    // Testing
+    testImplementation "io.mockk:mockk:1.9"
 }
 
 apply plugin: 'com.google.gms.google-services'
