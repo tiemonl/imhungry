@@ -67,7 +67,7 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$rootProject.dagger"
     kapt "com.google.dagger:dagger-compiler:$rootProject.dagger"
 
-    // MockK
+    // Testing
     testImplementation "io.mockk:mockk:1.9"
 }
 

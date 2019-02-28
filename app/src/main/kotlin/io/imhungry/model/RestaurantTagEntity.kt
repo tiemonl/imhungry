@@ -1,11 +1,11 @@
 package io.imhungry.model
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-@Entity(tableName = "restaurantTag",
-    primaryKeys = ["tag", "restaurantId"])
+@Entity(tableName = "tags_restaurant")
 data class RestaurantTagEntity(
-    @ColumnInfo(name = "tag") val tag: String,
-    @ColumnInfo(name = "restaurantId") val id: Int
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    val tag: String,
+    val restaurantId: Int
 )

@@ -4,8 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import dagger.Component
-import io.imhungry.di.RoomModule
 import io.imhungry.model.RestaurantEntity
 import io.imhungry.model.RestaurantTagEntity
 import io.imhungry.model.TagEntity
