@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 
-abstract class BaseActivity: AppCompatActivity(), FirebaseAuth.AuthStateListener {
+abstract class BaseActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 
     private val firebaseAuth by lazy { FirebaseAuth.getInstance() }
 
