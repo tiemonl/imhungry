@@ -5,9 +5,14 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import dagger.android.AndroidInjection
-import io.imhungry.login.ui.LoginActivity
+import io.imhungry.login.handleLoginActivityResult
+import io.imhungry.login.launchLoginActivity
 
 abstract class BaseActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
+
+    protected var loginFailureCallback = {
+        launchLoginActivity()
+    }
 
     private val firebaseAuth by lazy { FirebaseAuth.getInstance() }
 
@@ -28,7 +33,12 @@ abstract class BaseActivity : AppCompatActivity(), FirebaseAuth.AuthStateListene
 
     override fun onAuthStateChanged(auth: FirebaseAuth) {
         if (auth.currentUser == null) {
-            startActivity(Intent(this, LoginActivity::class.java))
+            launchLoginActivity()
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        handleLoginActivityResult(requestCode, resultCode, loginFailureCallback)
     }
 }
