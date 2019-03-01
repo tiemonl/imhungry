@@ -6,7 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.google.firebase.auth.FirebaseAuth
 import io.imhungry.R
-import io.imhungry.maps.ui.MyMapsActivity
+import io.imhungry.maps.ui.MapActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -23,7 +23,7 @@ class MainActivity : BaseActivity() {
         }
 
         mapButton.setOnClickListener {
-            startActivity(Intent(this, MyMapsActivity::class.java))
+            startActivity(Intent(this, MapActivity::class.java))
         }
     }
 
