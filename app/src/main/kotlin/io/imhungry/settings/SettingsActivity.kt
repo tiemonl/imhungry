@@ -1,4 +1,4 @@
-package io.imhungry.ui
+package io.imhungry.settings
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

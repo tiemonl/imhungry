@@ -1,4 +1,4 @@
-package io.imhungry.di
+package io.imhungry.common.di
 
 import android.app.Application
 import dagger.Module
@@ -10,4 +10,7 @@ class AppModule(private val app: Application) {
     @Provides
     @Singleton
     fun provideApplication() = app
+
+    @Provides
+    fun provideContext(app: Application) = app.applicationContext
 }

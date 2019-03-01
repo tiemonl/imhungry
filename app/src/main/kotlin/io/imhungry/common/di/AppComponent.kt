@@ -1,14 +1,14 @@
-package io.imhungry.di
+package io.imhungry.common.di
 
 import android.app.Application
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
 import io.imhungry.MainApplication
-import io.imhungry.db.ImhungryDao
-import io.imhungry.db.ImhungryDatabase
-import io.imhungry.db.ImhungryRepository
+import io.imhungry.home.di.HomeModule
 import io.imhungry.maps.di.MapsModule
+import io.imhungry.notifications.di.NotificationModule
+import io.imhungry.room.di.RoomModule
 import javax.inject.Singleton
 
 @Singleton
@@ -16,20 +16,13 @@ import javax.inject.Singleton
     modules = [
         AndroidInjectionModule::class,
         AppModule::class,
-        ActivityModule::class,
         RoomModule::class,
         ViewModelModule::class,
-        MapsModule::class
+        MapsModule::class,
+        HomeModule::class,
+        NotificationModule::class
     ]
 )
 interface AppComponent : AndroidInjector<MainApplication> {
     fun inject(app: Application)
-
-    fun imhungryDao(): ImhungryDao
-
-    fun imhungryDatabase(): ImhungryDatabase
-
-    fun imhungryRepository(): ImhungryRepository
-
-    fun application(): Application
 }

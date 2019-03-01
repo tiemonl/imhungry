@@ -7,7 +7,7 @@ import com.google.maps.model.LatLng
 import com.google.maps.model.PlaceType
 import com.google.maps.model.PlacesSearchResult
 import com.google.maps.model.RankBy
-import io.imhungry.viewmodel.BaseViewModel
+import io.imhungry.common.vm.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

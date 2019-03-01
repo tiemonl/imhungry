@@ -1,20 +1,18 @@
-package io.imhungry.di
+package io.imhungry.room.di
 
 import android.app.Application
 import dagger.Module
 import dagger.Provides
-import io.imhungry.db.ImhungryDao
-import io.imhungry.db.ImhungryDatabase
-import io.imhungry.db.ImhungryRepository
+import io.imhungry.room.db.ImhungryDao
+import io.imhungry.room.db.ImhungryDatabase
+import io.imhungry.room.db.ImhungryRepository
 import javax.inject.Singleton
 
 @Module
-class RoomModule(application: Application) {
-    private val imhungryDatabase = ImhungryDatabase.createInstance(application)
-
+class RoomModule {
     @Singleton
     @Provides
-    fun providesRoomDatabase() = imhungryDatabase
+    fun providesRoomDatabase(application: Application) = ImhungryDatabase.createInstance(application)
 
     @Singleton
     @Provides

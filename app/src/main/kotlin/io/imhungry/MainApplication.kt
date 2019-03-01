@@ -6,10 +6,10 @@ import com.google.firebase.FirebaseApp
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
-import io.imhungry.di.AppComponent
-import io.imhungry.di.AppModule
-import io.imhungry.di.DaggerAppComponent
-import io.imhungry.di.RoomModule
+import io.imhungry.common.di.AppComponent
+import io.imhungry.common.di.AppModule
+import io.imhungry.common.di.DaggerAppComponent
+import io.imhungry.room.di.RoomModule
 import javax.inject.Inject
 
 class MainApplication : Application(), HasActivityInjector {
@@ -20,7 +20,6 @@ class MainApplication : Application(), HasActivityInjector {
     private val component: AppComponent by lazy {
         DaggerAppComponent.builder()
             .appModule(AppModule(this))
-            .roomModule(RoomModule(this))
             .build()
     }
 
