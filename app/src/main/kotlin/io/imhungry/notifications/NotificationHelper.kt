@@ -49,7 +49,7 @@ class NotificationHelper(private val context: Context) {
         message: String,
         priority: NotificationPriority
     ): NotificationCompat.Builder {
-        return NotificationCompat.Builder(this.context, context.getString(R.string.CHANNEL_ID))
+        return NotificationCompat.Builder(this.context, context.getString(R.string.primary_notification_channel_id))
             .setSmallIcon(R.drawable.ic_silverware)
             .setContentTitle(title)
             .setContentText(message)
@@ -69,11 +69,11 @@ class NotificationHelper(private val context: Context) {
         // Create the NotificationChannel, but only on API 26+ because
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
-                context.getString(R.string.CHANNEL_ID),
-                context.getString(R.string.channel_name),
+                context.getString(R.string.primary_notification_channel_id),
+                context.getString(R.string.primary_notification_channel_name),
                 NotificationManager.IMPORTANCE_DEFAULT
             ).apply {
-                description = context.getString(R.string.channel_description)
+                description = context.getString(R.string.primary_notification_channel_description)
             }
             // Register the channel with the system
             val notificationManager: NotificationManager =
