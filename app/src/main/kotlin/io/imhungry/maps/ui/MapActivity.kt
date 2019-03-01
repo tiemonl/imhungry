@@ -38,14 +38,10 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
 
     //For Current Location
     private lateinit var map: GoogleMap
-    private var currentLatitude = 0.0
-    private var currentLongitude = 0.0
-    private lateinit var lastLocation: Location
     private var mapMarker: Marker? = null
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
-
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
@@ -112,22 +108,19 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
     private fun buildLocationCallBack() {
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(p0: LocationResult) {
-                lastLocation = p0.locations[p0.locations.size - 1]
+                val location = p0.locations[p0.locations.size - 1]
 
                 if (mapMarker != null) {
                     mapMarker?.remove()
                 }
 
-                currentLatitude = lastLocation.latitude
-                currentLongitude = lastLocation.longitude
-
-                val latLng = LatLng(currentLatitude, currentLongitude)
-                map.addMarker(
+                val latLng = LatLng(location.latitude, location.longitude)
+                mapMarker = map.addMarker(
                     MarkerOptions()
                         .position(latLng)
                         .title("You are here")
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-                ).showInfoWindow()
+                )
                 map.moveCamera(CameraUpdateFactory.newLatLng(latLng))
                 map.animateCamera(CameraUpdateFactory.zoomTo(14f))
 
