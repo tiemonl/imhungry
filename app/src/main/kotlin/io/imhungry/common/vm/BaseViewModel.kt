@@ -1,4 +1,4 @@
-package io.imhungry.viewmodel
+package io.imhungry.common.vm
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope

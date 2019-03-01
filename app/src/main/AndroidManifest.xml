@@ -17,23 +17,23 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".ui.LauncherActivity">
+        <activity android:name=".launcher.ui.LauncherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.LoginActivity" />
-        <activity android:name=".ui.MainActivity" />
+        <activity android:name=".login.ui.LoginActivity" />
+        <activity android:name=".home.ui.HomeActivity" />
 
         <activity
-            android:name=".ui.SettingsActivity"
-            android:parentActivityName=".ui.MainActivity" />
+            android:name=".settings.SettingsActivity"
+            android:parentActivityName=".home.ui.HomeActivity" />
 
         <activity
             android:name=".maps.ui.MapActivity"
-            android:parentActivityName=".ui.MainActivity" />
+            android:parentActivityName=".home.ui.HomeActivity" />
     </application>
 
 </manifest>

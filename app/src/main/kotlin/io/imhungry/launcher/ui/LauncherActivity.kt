@@ -1,10 +1,12 @@
-package io.imhungry.ui
+package io.imhungry.launcher.ui
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import io.imhungry.R
+import io.imhungry.login.ui.LoginActivity
+import io.imhungry.home.ui.HomeActivity
 
 class LauncherActivity : AppCompatActivity() {
 
@@ -21,7 +23,7 @@ class LauncherActivity : AppCompatActivity() {
     private val isLoggedIn
         get() = firebaseAuth.currentUser != null
 
-    private fun routeToMain() = startActivity(Intent(this, MainActivity::class.java))
+    private fun routeToMain() = startActivity(Intent(this, HomeActivity::class.java))
 
     private fun routeToLogin() = startActivity(Intent(this, LoginActivity::class.java))
 

@@ -1,4 +1,4 @@
-package io.imhungry.di
+package io.imhungry.common.di
 
 import android.app.Application
 import dagger.Module
