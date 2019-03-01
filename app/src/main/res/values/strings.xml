@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">imhungry</string>
 
+    <!-- Notification strings -->
+    <string name="primary_notification_channel_id">HUNGRY_CHANNEL</string>
+    <string name="primary_notification_channel_description">imhungry info</string>
+    <string name="primary_notification_channel_name">imhungry notifications</string>
+
     <!--Firebase auth strings-->
     <string name="hint_user_id">User ID</string>
     <string name="get_custom_token">Get Token</string>
