@@ -10,10 +10,7 @@ import androidx.core.app.NotificationManagerCompat
 import io.imhungry.R
 
 class NotificationHelper(private val context: Context) {
-    /**
-     * Need to yell at the user right away? This is your function!
-     * Just pass what you want to say. That's it.
-     */
+
     fun sendNotificationNow(
         title: String,
         message: String,
@@ -27,9 +24,6 @@ class NotificationHelper(private val context: Context) {
         )
     }
 
-    /**
-     * All you have to do is create the notification, this will take care of the rest.
-     */
     fun scheduleNotification(
         notificationBuilder: NotificationCompat.Builder, notificationID: Int
     ) {
@@ -66,7 +60,6 @@ class NotificationHelper(private val context: Context) {
      * This function can be called numerous times. If the channel is already created the system takes no action.
      */
     private fun initNotifications() {
-        // Create the NotificationChannel, but only on API 26+ because
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 context.getString(R.string.primary_notification_channel_id),
