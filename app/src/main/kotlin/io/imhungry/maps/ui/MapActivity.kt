@@ -138,7 +138,7 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
 
     private fun buildLocationRequest() {
         locationRequest = LocationRequest()
-        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        locationRequest.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
         locationRequest.interval = 15000
         locationRequest.fastestInterval = 10000
         locationRequest.smallestDisplacement = 10f
