@@ -10,19 +10,6 @@ import androidx.core.app.NotificationManagerCompat
 import io.imhungry.R
 
 class NotificationHelper(private val context: Context) {
-
-    /**
-     *  Unfortunately, NotificationCompat does actually have an ENUM behind the scenes.
-     *  This simplifies the function arguments in this class.
-     */
-    enum class Priority constructor(internal val value: Int) {
-        MIN(NotificationCompat.PRIORITY_MIN),
-        LOW(NotificationCompat.PRIORITY_LOW),
-        DEFAULT(NotificationCompat.PRIORITY_DEFAULT),
-        HIGH(NotificationCompat.PRIORITY_HIGH),
-        MAX(NotificationCompat.PRIORITY_MAX)
-    }
-
     /**
      * Need to yell at the user right away? This is your function!
      * Just pass what you want to say. That's it.
@@ -31,7 +18,7 @@ class NotificationHelper(private val context: Context) {
         title: String,
         message: String,
         intent: PendingIntent?,
-        priority: Priority,
+        priority: NotificationPriority,
         notificationID: Int
     ) {
         scheduleNotification(
@@ -60,7 +47,7 @@ class NotificationHelper(private val context: Context) {
     fun getStarterNotificationBuilder(
         title: String,
         message: String,
-        priority: Priority
+        priority: NotificationPriority
     ): NotificationCompat.Builder {
         return NotificationCompat.Builder(this.context, context.getString(R.string.CHANNEL_ID))
             .setSmallIcon(R.drawable.ic_silverware)
