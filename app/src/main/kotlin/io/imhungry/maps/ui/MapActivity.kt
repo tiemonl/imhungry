@@ -64,6 +64,22 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
         }
         //Enable Zoom Control
         map.uiSettings.isZoomControlsEnabled = true
+
+        mapItems.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        mapItems.adapter = MapItemAdapter(this, mapViewModel.mapData, map)
+
+        mapViewModel.mapData.observe(this, Observer { results ->
+            map.clear()
+            for (result in results) {
+                map.addMarker(
+                    MarkerOptions()
+                        .position(result.geometry.location.let { LatLng(it.lat, it.lng) })
+                        .title(result.name)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                )
+            }
+            mapItems.adapter?.notifyDataSetChanged()
+        })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,9 +91,6 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
         val mapFragment = SupportMapFragment()
         supportFragmentManager.beginTransaction().add(R.id.mapFragmentHolder, mapFragment).commit()
         mapFragment.getMapAsync(this)
-
-        mapItems.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        mapItems.adapter = MapItemAdapter(this, mapViewModel.mapData)
 
         //Request runtime permission
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -93,17 +106,6 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
             fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
         }
-
-        mapViewModel.mapData.observe(this, Observer { results ->
-            for (result in results) {
-                map.addMarker(
-                    MarkerOptions()
-                        .position(result.geometry.location.let { LatLng(it.lat, it.lng) })
-                        .title(result.name)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-                )
-            }
-        })
     }
 
     //Get Current Location
@@ -137,8 +139,8 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
     private fun buildLocationRequest() {
         locationRequest = LocationRequest()
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        locationRequest.interval = 5000
-        locationRequest.fastestInterval = 3000
+        locationRequest.interval = 15000
+        locationRequest.fastestInterval = 10000
         locationRequest.smallestDisplacement = 10f
     }
 
