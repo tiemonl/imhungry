@@ -36,7 +36,6 @@ class HomeActivity : BaseActivity() {
 
         logoutButton.setOnClickListener {
             auth.signOut()
-            finish()
         }
 
         mapButton.setOnClickListener {
