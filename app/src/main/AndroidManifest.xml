@@ -24,7 +24,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".login.ui.LoginActivity" />
         <activity android:name=".home.ui.HomeActivity" />
 
         <activity
