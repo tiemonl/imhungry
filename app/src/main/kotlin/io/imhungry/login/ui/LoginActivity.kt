@@ -1,4 +1,4 @@
-package io.imhungry.ui
+package io.imhungry.login.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import io.imhungry.R
+import io.imhungry.home.ui.HomeActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject
 
@@ -179,7 +180,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun routeToMain() = startActivity(Intent(this, MainActivity::class.java))
+    private fun routeToMain() = startActivity(Intent(this, HomeActivity::class.java))
 
     companion object {
         private const val TAG = "EmailPassword"

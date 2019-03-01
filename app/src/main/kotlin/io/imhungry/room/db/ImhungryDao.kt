@@ -1,12 +1,12 @@
-package io.imhungry.db
+package io.imhungry.room.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import io.imhungry.model.RestaurantEntity
-import io.imhungry.model.RestaurantTagEntity
-import io.imhungry.model.TagEntity
+import io.imhungry.room.model.RestaurantEntity
+import io.imhungry.room.model.RestaurantTagEntity
+import io.imhungry.room.model.TagEntity
 
 @Dao
 interface ImhungryDao {

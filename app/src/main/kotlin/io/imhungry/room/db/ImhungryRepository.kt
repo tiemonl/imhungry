@@ -1,10 +1,10 @@
-package io.imhungry.db
+package io.imhungry.room.db
 
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
-import io.imhungry.model.RestaurantEntity
-import io.imhungry.model.RestaurantTagEntity
-import io.imhungry.model.TagEntity
+import io.imhungry.room.model.RestaurantEntity
+import io.imhungry.room.model.RestaurantTagEntity
+import io.imhungry.room.model.TagEntity
 
 class ImhungryRepository(private val imhungryDao: ImhungryDao) {
 
