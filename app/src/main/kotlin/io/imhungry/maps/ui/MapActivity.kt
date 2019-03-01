@@ -6,12 +6,12 @@ import android.location.Location
 import android.os.Build
 import android.os.Bundle
 import android.os.Looper
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.*
@@ -23,16 +23,13 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.maps.model.PlaceType
 import io.imhungry.R
 import io.imhungry.maps.ui.adapters.MapItemAdapter
 import io.imhungry.maps.vm.MapViewModel
 import io.imhungry.ui.BaseActivity
 import kotlinx.android.synthetic.main.activity_map.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import javax.inject.Inject
-
 
 class MyMapsActivity : BaseActivity(), OnMapReadyCallback {
 
@@ -70,10 +67,11 @@ class MyMapsActivity : BaseActivity(), OnMapReadyCallback {
         map.uiSettings.isZoomControlsEnabled = true
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
+
+        mapViewModel = ViewModelProviders.of(this, viewModelFactory)[MapViewModel::class.java]
 
         val mapFragment = SupportMapFragment()
         supportFragmentManager.beginTransaction().add(R.id.mapFragmentHolder, mapFragment).commit()
@@ -109,15 +107,14 @@ class MyMapsActivity : BaseActivity(), OnMapReadyCallback {
         })
     }
 
-
     //Get Current Location
     private fun buildLocationCallBack() {
         locationCallback = object : LocationCallback() {
-            override fun onLocationResult(p0: LocationResult?) {
-                lastLocation = p0!!.locations[p0.locations.size - 1]
+            override fun onLocationResult(p0: LocationResult) {
+                lastLocation = p0.locations[p0.locations.size - 1]
 
                 if (mapMarker != null) {
-                    mapMarker!!.remove()
+                    mapMarker?.remove()
                 }
 
                 currentLatitude = lastLocation.latitude
@@ -133,8 +130,7 @@ class MyMapsActivity : BaseActivity(), OnMapReadyCallback {
                 map.moveCamera(CameraUpdateFactory.newLatLng(latLng))
                 map.animateCamera(CameraUpdateFactory.zoomTo(14f))
 
-                //Get Nearby Places
-                nearByPlaces("restaurant")
+                mapViewModel.loadNearbyPlaces(com.google.maps.model.LatLng(latLng.latitude, latLng.longitude), PlaceType.RESTAURANT)
             }
         }
     }
@@ -171,7 +167,6 @@ class MyMapsActivity : BaseActivity(), OnMapReadyCallback {
                 )
             }
             return false
-
         } else {
             return true
         }
@@ -195,7 +190,7 @@ class MyMapsActivity : BaseActivity(), OnMapReadyCallback {
                                 locationCallback,
                                 Looper.myLooper()
                             )
-                            map!!.isMyLocationEnabled = true
+                            map.isMyLocationEnabled = true
                         }
                     }
                 } else {
