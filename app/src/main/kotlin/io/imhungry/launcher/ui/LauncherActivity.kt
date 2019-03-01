@@ -39,6 +39,7 @@ class LauncherActivity : AppCompatActivity() {
     private fun routeAuth() {
         if (isLoggedIn) {
             routeToMain()
+            finish()
         } else {
             launchLogin()
         }
