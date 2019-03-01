@@ -32,7 +32,7 @@
             android:parentActivityName=".ui.MainActivity" />
 
         <activity
-            android:name=".maps.ui.MyMapsActivity"
+            android:name=".maps.ui.MapActivity"
             android:parentActivityName=".ui.MainActivity" />
     </application>
 
