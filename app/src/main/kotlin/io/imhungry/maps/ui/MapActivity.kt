@@ -1,6 +1,5 @@
 package io.imhungry.maps.ui
 
-
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Build
@@ -31,7 +30,7 @@ import io.imhungry.ui.BaseActivity
 import kotlinx.android.synthetic.main.activity_map.*
 import javax.inject.Inject
 
-class MyMapsActivity : BaseActivity(), OnMapReadyCallback {
+class MapActivity : BaseActivity(), OnMapReadyCallback {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
