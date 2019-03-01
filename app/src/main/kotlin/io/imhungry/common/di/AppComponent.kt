@@ -7,6 +7,7 @@ import dagger.android.AndroidInjector
 import io.imhungry.MainApplication
 import io.imhungry.home.di.HomeModule
 import io.imhungry.maps.di.MapsModule
+import io.imhungry.notifications.di.NotificationModule
 import io.imhungry.room.di.RoomModule
 import javax.inject.Singleton
 
@@ -18,7 +19,8 @@ import javax.inject.Singleton
         RoomModule::class,
         ViewModelModule::class,
         MapsModule::class,
-        HomeModule::class
+        HomeModule::class,
+        NotificationModule::class
     ]
 )
 interface AppComponent : AndroidInjector<MainApplication> {

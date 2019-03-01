@@ -25,6 +25,9 @@ class HomeActivity : BaseActivity() {
     lateinit var viewModelFactory: ViewModelFactory
     private lateinit var homeViewModel: HomeViewModel
 
+    @Inject
+    lateinit var notificationHelper: NotificationHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -43,7 +46,13 @@ class HomeActivity : BaseActivity() {
 
     override fun onStart() {
         super.onStart()
-        NotificationHelper(this).sendNotificationNow("Welcome!", "We hope you're hungry!", null, NotificationPriority.DEFAULT, 0)
+        notificationHelper.sendNotificationNow(
+            "Welcome!",
+            "We hope you're hungry!",
+            null,
+            NotificationPriority.DEFAULT,
+            0
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
