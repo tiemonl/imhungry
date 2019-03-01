@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.imhungry">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:name=".MainApplication"
         android:allowBackup="true"
@@ -10,22 +12,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
         <activity android:name=".ui.LauncherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.MainActivity" />
 
-        <!-- Set parent as MainActivity to enable app bar back button -->
         <activity
             android:name=".ui.SettingsActivity"
             android:parentActivityName=".ui.MainActivity" />
 
-        <activity android:name=".ui.LoginActivity" />
+        <activity
+            android:name=".maps.ui.MapActivity"
+            android:parentActivityName=".ui.MainActivity" />
     </application>
-
 
 </manifest>
