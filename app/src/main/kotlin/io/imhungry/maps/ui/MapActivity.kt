@@ -1,7 +1,6 @@
 package io.imhungry.maps.ui
 
 import android.content.pm.PackageManager
-import android.location.Location
 import android.os.Build
 import android.os.Bundle
 import android.os.Looper
@@ -28,6 +27,7 @@ import io.imhungry.maps.ui.adapters.MapItemAdapter
 import io.imhungry.maps.vm.MapViewModel
 import io.imhungry.ui.BaseActivity
 import kotlinx.android.synthetic.main.activity_map.*
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class MapActivity : BaseActivity(), OnMapReadyCallback {
@@ -39,9 +39,18 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
     //For Current Location
     private lateinit var map: GoogleMap
     private var mapMarker: Marker? = null
-    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    private lateinit var locationRequest: LocationRequest
-    private lateinit var locationCallback: LocationCallback
+
+    private val fusedLocationProviderClient: FusedLocationProviderClient by lazy {
+        LocationServices.getFusedLocationProviderClient(
+            this
+        )
+    }
+    private val locationRequest: LocationRequest = LocationRequest()
+        .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
+        .setInterval(30000)
+        .setFastestInterval(30000)
+        .setSmallestDisplacement(10f)
+    private val locationCallback = MapLocationCallback()
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
@@ -89,55 +98,29 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
 
         //Request runtime permission
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            if (checkLocationPermission()) {
-                buildLocationRequest()
-                buildLocationCallBack()
-                fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-                fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
-            }
-        } else {
-            buildLocationRequest()
-            buildLocationCallBack()
-            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-            fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
-        }
+        registerLocationUpdatesPrivileged()
     }
 
-    //Get Current Location
-    private fun buildLocationCallBack() {
-        locationCallback = object : LocationCallback() {
-            override fun onLocationResult(p0: LocationResult) {
-                val location = p0.locations[p0.locations.size - 1]
-
-                if (mapMarker != null) {
-                    mapMarker?.remove()
-                }
-
-                val latLng = LatLng(location.latitude, location.longitude)
-                mapMarker = map.addMarker(
-                    MarkerOptions()
-                        .position(latLng)
-                        .title("You are here")
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-                )
-                map.moveCamera(CameraUpdateFactory.newLatLng(latLng))
-                map.animateCamera(CameraUpdateFactory.zoomTo(14f))
-
-                mapViewModel.loadNearbyPlaces(com.google.maps.model.LatLng(latLng.latitude, latLng.longitude), PlaceType.RESTAURANT)
-            }
-        }
+    override fun onStop() {
+        super.onStop()
+        fusedLocationProviderClient.removeLocationUpdates(locationCallback)
     }
 
-    private fun buildLocationRequest() {
-        locationRequest = LocationRequest()
-        locationRequest.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
-        locationRequest.interval = 15000
-        locationRequest.fastestInterval = 10000
-        locationRequest.smallestDisplacement = 10f
+    private fun registerLocationUpdatesPrivileged() {
+        if (checkLocationPermission()) {
+            fusedLocationProviderClient.requestLocationUpdates(
+                locationRequest,
+                locationCallback,
+                Looper.myLooper()
+            )
+        }
     }
 
     private fun checkLocationPermission(): Boolean {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            return true
+        }
+
         if (ContextCompat.checkSelfPermission(
                 this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION
@@ -166,7 +149,11 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         when (requestCode) {
             MY_PERMISSION_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -176,9 +163,6 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
                         ) == PackageManager.PERMISSION_GRANTED
                     ) {
                         if (checkLocationPermission()) {
-                            buildLocationRequest()
-                            buildLocationCallBack()
-                            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
                             fusedLocationProviderClient.requestLocationUpdates(
                                 locationRequest,
                                 locationCallback,
@@ -189,17 +173,47 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
                     }
                 } else {
                     Toast.makeText(this, "Permission Denied", Toast.LENGTH_LONG).show()
+                    finish()
                 }
             }
         }
     }
 
-    override fun onStop() {
-        fusedLocationProviderClient.removeLocationUpdates(locationCallback)
-        super.onStop()
+    inner class MapLocationCallback : LocationCallback() {
+        private var lastUpdate = 0L
+
+        override fun onLocationResult(p0: LocationResult) {
+            val location = p0.locations[p0.locations.size - 1]
+
+            if (mapMarker != null) {
+                mapMarker?.remove()
+            }
+
+            val latLng = LatLng(location.latitude, location.longitude)
+            mapMarker = map.addMarker(
+                MarkerOptions()
+                    .position(latLng)
+                    .title("You are here")
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+            )
+            map.moveCamera(CameraUpdateFactory.newLatLng(latLng))
+            map.animateCamera(CameraUpdateFactory.zoomTo(14f))
+
+            if (System.currentTimeMillis() - lastUpdate > NEARBY_CACHE_TIME) {
+                mapViewModel.loadNearbyPlaces(
+                    com.google.maps.model.LatLng(
+                        latLng.latitude,
+                        latLng.longitude
+                    ), PlaceType.RESTAURANT
+                )
+                lastUpdate = System.currentTimeMillis()
+            }
+        }
     }
 
     companion object {
+        private val NEARBY_CACHE_TIME = TimeUnit.MINUTES.toMillis(3)
+
         private const val MY_PERMISSION_CODE: Int = 1000
     }
 }
