@@ -6,6 +6,8 @@ import android.view.Menu
 import android.view.MenuItem
 import com.google.firebase.auth.FirebaseAuth
 import io.imhungry.R
+import io.imhungry.notifications.NotificationHelper
+import io.imhungry.notifications.NotificationPriority
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -20,6 +22,11 @@ class MainActivity : BaseActivity() {
             auth.signOut()
             finish()
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        NotificationHelper(this).sendNotificationNow("Welcome!", "We hope you're hungry!", null, NotificationPriority.DEFAULT, 0)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
