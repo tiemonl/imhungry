@@ -2,10 +2,10 @@ package io.imhungry.di
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import io.imhungry.ui.LoginActivity
+import io.imhungry.ui.MainActivity
 
 @Module
 abstract class ActivityModule {
     @ContributesAndroidInjector
-    abstract fun contributeMainActivityInjector(): LoginActivity
+    abstract fun contributeMainActivityInjector(): MainActivity
 }

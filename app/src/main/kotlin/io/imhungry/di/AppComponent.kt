@@ -8,10 +8,20 @@ import io.imhungry.MainApplication
 import io.imhungry.db.ImhungryDao
 import io.imhungry.db.ImhungryDatabase
 import io.imhungry.db.ImhungryRepository
+import io.imhungry.maps.di.MapsModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AndroidInjectionModule::class, AppModule::class, ActivityModule::class, RoomModule::class, ViewModelModule::class])
+@Component(
+    modules = [
+        AndroidInjectionModule::class,
+        AppModule::class,
+        ActivityModule::class,
+        RoomModule::class,
+        ViewModelModule::class,
+        MapsModule::class
+    ]
+)
 interface AppComponent : AndroidInjector<MainApplication> {
     fun inject(app: Application)
 
