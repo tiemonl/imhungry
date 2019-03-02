@@ -4,7 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import io.imhungry.R
 import io.imhungry.common.di.ViewModelFactory
@@ -40,6 +43,19 @@ class HomeActivity : BaseActivity() {
 
         mapButton.setOnClickListener {
             startActivity(Intent(this, MapActivity::class.java))
+        }
+
+        val bottomNavigation = findViewById<View>(R.id.navigationView) as BottomNavigationView
+        bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId){
+                R.id.navigation_home ->
+                    Toast.makeText(application, "home clicked", Toast.LENGTH_SHORT).show()
+                R.id.navigation_Map ->
+                    Toast.makeText(application, "map clicked", Toast.LENGTH_SHORT).show()
+                R.id.navigation_more ->
+                    Toast.makeText(application, "more clicked", Toast.LENGTH_SHORT).show()
+            }
+            true
         }
     }
 
