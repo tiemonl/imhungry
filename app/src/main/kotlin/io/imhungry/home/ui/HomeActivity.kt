@@ -4,16 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import io.imhungry.R
 import io.imhungry.common.di.ViewModelFactory
 import io.imhungry.common.ui.BaseActivity
 import io.imhungry.home.vm.HomeViewModel
-import io.imhungry.maps.ui.MapActivity
 import io.imhungry.notifications.NotificationHelper
 import io.imhungry.notifications.NotificationPriority
 import io.imhungry.settings.SettingsActivity
@@ -39,19 +35,6 @@ class HomeActivity : BaseActivity() {
 
         logoutButton.setOnClickListener {
             auth.signOut()
-        }
-
-        val bottomNavigation = findViewById<View>(R.id.navigationView) as BottomNavigationView
-        bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId){
-                R.id.navigation_home ->
-                    startActivity(Intent(this, HomeActivity::class.java))
-                R.id.navigation_Map ->
-                    startActivity(Intent(this, MapActivity::class.java))
-                R.id.navigation_more ->
-                    Toast.makeText(application, "more clicked", Toast.LENGTH_SHORT).show()
-            }
-            true
         }
     }
 
