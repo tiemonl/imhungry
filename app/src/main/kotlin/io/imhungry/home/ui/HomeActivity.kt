@@ -41,17 +41,13 @@ class HomeActivity : BaseActivity() {
             auth.signOut()
         }
 
-        mapButton.setOnClickListener {
-            startActivity(Intent(this, MapActivity::class.java))
-        }
-
         val bottomNavigation = findViewById<View>(R.id.navigationView) as BottomNavigationView
         bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId){
                 R.id.navigation_home ->
-                    Toast.makeText(application, "home clicked", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, HomeActivity::class.java))
                 R.id.navigation_Map ->
-                    Toast.makeText(application, "map clicked", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, MapActivity::class.java))
                 R.id.navigation_more ->
                     Toast.makeText(application, "more clicked", Toast.LENGTH_SHORT).show()
             }
