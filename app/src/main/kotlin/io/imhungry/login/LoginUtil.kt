@@ -6,6 +6,8 @@ import com.firebase.ui.auth.AuthUI
 import io.imhungry.R
 import io.imhungry.home.ui.HomeActivity
 import io.imhungry.login.LoginConstants.RC_SIGN_IN
+import io.imhungry.notifications.NotificationHelper
+import io.imhungry.notifications.NotificationPriority
 
 private object LoginConstants {
     val AUTH_PROVIDERS = listOf(
@@ -33,6 +35,13 @@ fun AppCompatActivity.handleLoginActivityResult(requestCode: Int, resultCode: In
         RC_SIGN_IN -> {
             if (resultCode == AppCompatActivity.RESULT_OK) {
                 startActivity(Intent(this, HomeActivity::class.java))
+                NotificationHelper(this).sendNotificationNow(
+                    "Welcome!",
+                    "We hope you're hungry!",
+                    null,
+                    NotificationPriority.DEFAULT,
+                    0
+                )
             } else {
                 if (failureCallback != null) {
                     failureCallback()
