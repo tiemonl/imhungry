@@ -37,11 +37,7 @@ class HomeActivity : BaseActivity() {
             startActivity(Intent(this, MapActivity::class.java))
         }
     }
-
-    override fun onStart() {
-        super.onStart()
-    }
-
+    
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.action_bar_options, menu)
         return true
