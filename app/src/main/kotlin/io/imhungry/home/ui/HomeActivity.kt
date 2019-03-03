@@ -10,6 +10,8 @@ import io.imhungry.R
 import io.imhungry.common.di.ViewModelFactory
 import io.imhungry.common.ui.BaseActivity
 import io.imhungry.home.vm.HomeViewModel
+import io.imhungry.notifications.NotificationHelper
+import io.imhungry.notifications.NotificationPriority
 import io.imhungry.maps.ui.MapActivity
 import io.imhungry.settings.SettingsActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -31,10 +33,6 @@ class HomeActivity : BaseActivity() {
 
         logoutButton.setOnClickListener {
             auth.signOut()
-        }
-
-        mapButton.setOnClickListener {
-            startActivity(Intent(this, MapActivity::class.java))
         }
     }
     
