@@ -11,8 +11,6 @@ import io.imhungry.common.di.ViewModelFactory
 import io.imhungry.common.ui.BaseActivity
 import io.imhungry.home.vm.HomeViewModel
 import io.imhungry.maps.ui.MapActivity
-import io.imhungry.notifications.NotificationHelper
-import io.imhungry.notifications.NotificationPriority
 import io.imhungry.settings.SettingsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -24,9 +22,6 @@ class HomeActivity : BaseActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private lateinit var homeViewModel: HomeViewModel
-
-    @Inject
-    lateinit var notificationHelper: NotificationHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,13 +40,6 @@ class HomeActivity : BaseActivity() {
 
     override fun onStart() {
         super.onStart()
-        notificationHelper.sendNotificationNow(
-            "Welcome!",
-            "We hope you're hungry!",
-            null,
-            NotificationPriority.DEFAULT,
-            0
-        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
