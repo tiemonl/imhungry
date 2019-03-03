@@ -20,8 +20,8 @@ fun AppCompatActivity.launchLoginActivity() {
     startActivityForResult(
         AuthUI.getInstance().createSignInIntentBuilder()
             .setAvailableProviders(
-            LoginConstants.AUTH_PROVIDERS
-        )
+                LoginConstants.AUTH_PROVIDERS
+            )
             .setLogo(R.drawable.ic_imhungry_logo_outlined)
             .setTheme(R.style.AppTheme)
             .setIsSmartLockEnabled(false, false)
@@ -30,7 +30,11 @@ fun AppCompatActivity.launchLoginActivity() {
     )
 }
 
-fun AppCompatActivity.handleLoginActivityResult(requestCode: Int, resultCode: Int, failureCallback: (() -> Unit)? = null) {
+fun AppCompatActivity.handleLoginActivityResult(
+    requestCode: Int,
+    resultCode: Int,
+    failureCallback: (() -> Unit)? = null
+) {
     when (requestCode) {
         RC_SIGN_IN -> {
             if (resultCode == AppCompatActivity.RESULT_OK) {
