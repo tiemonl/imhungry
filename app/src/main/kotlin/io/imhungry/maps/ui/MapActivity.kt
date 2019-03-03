@@ -36,7 +36,6 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var mapViewModel: MapViewModel
 
-    //For Current Location
     private lateinit var map: GoogleMap
     private var mapMarker: Marker? = null
 
@@ -55,7 +54,8 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
 
-        //Init Google Play Services
+        registerLocationUpdatesPrivileged()
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             if (ContextCompat.checkSelfPermission(
                     this,
@@ -67,7 +67,7 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
         } else {
             map.isMyLocationEnabled = true
         }
-        //Enable Zoom Control
+
         map.uiSettings.isZoomControlsEnabled = true
 
         mapItems.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
@@ -96,9 +96,6 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
         val mapFragment = SupportMapFragment()
         supportFragmentManager.beginTransaction().add(R.id.mapFragmentHolder, mapFragment).commit()
         mapFragment.getMapAsync(this)
-
-        //Request runtime permission
-        registerLocationUpdatesPrivileged()
     }
 
     override fun onStop() {
