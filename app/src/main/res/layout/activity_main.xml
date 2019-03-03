@@ -23,9 +23,5 @@
                 android:text="Log Out!"/>
     </LinearLayout>
 
-    <fragment
-            android:name="io.imhungry.fragments.BottomNavigationFragment"
-            android:id="@+id/bottomNavFragment"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"/>
+    <include layout="@layout/bottom_nav"/>
 </LinearLayout>
