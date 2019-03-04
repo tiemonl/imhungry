@@ -33,7 +33,7 @@ jobs:
         command: ./gradlew lint test
     - run:
         name: Coverage Reports
-        command: ./gradlew jacocoTestReport
+        command: ./gradlew connectedCheck
     - codecov/upload:
         file: app/build/reports
     - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
