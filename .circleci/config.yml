@@ -1,4 +1,6 @@
-version: 2
+version: 2.1
+orbs:
+  codecov: codecov/codecov@1.0.4
 jobs:
   build:
     working_directory: ~/imhungry
@@ -29,13 +31,14 @@ jobs:
     - run:
         name: Run Tests
         command: ./gradlew lint test
+    - run:
+        name: Coverage Reports
+        command: ./gradlew jacocoTestReport
+    -codecov/upload:
+        file: app/build/reports
     - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
         path: app/build/reports
         destination: reports
     - store_test_results: # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
         path: app/build/test-results
-  test:
-    post:
-      - if [ -e ./gradlew ]; then ./gradlew jacocoTestReport;else gradle jacocoTestReport;fi
-      - bash <(curl -s https://codecov.io/bash)
     # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples
