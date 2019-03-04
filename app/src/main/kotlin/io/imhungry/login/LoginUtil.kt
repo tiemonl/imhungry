@@ -11,7 +11,8 @@ import io.imhungry.notifications.NotificationPriority
 
 private object LoginConstants {
     val AUTH_PROVIDERS = listOf(
-        AuthUI.IdpConfig.EmailBuilder().build()
+        AuthUI.IdpConfig.EmailBuilder().build(),
+        AuthUI.IdpConfig.GoogleBuilder().build()
     )
     const val RC_SIGN_IN = 889
 }
