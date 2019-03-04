@@ -34,7 +34,7 @@ jobs:
     - run:
         name: Coverage Reports
         command: ./gradlew jacocoTestReport
-    -codecov/upload:
+    - codecov/upload:
         file: app/build/reports
     - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
         path: app/build/reports
