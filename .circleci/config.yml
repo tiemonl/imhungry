@@ -38,7 +38,7 @@ jobs:
         name: Codecov Setup
         command: sudo mv .codecov/codecov.yml .codecov.yml
     - codecov/upload:
-        file: app/build/reports
+        file: app/build/reports/coverage
     - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
         path: app/build/reports
         destination: reports
