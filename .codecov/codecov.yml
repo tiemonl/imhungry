@@ -6,7 +6,7 @@ coverage:
   notify:
     slack:
       default:
-        url: secret:KorhpHIOSa3QHt5FDQzb7GhNRqpFLrZ4cwHppkJjZwuOO5XBJbkB8eyRTm44kFgvtAVcG0efGTL+2l6m8DkkNKa80coKyE/0PivSN7E85i1TKiZxOTzWaca3Lva/1Y1n8RAZejKGxb7BCWcye8aY2x1UWN+O1+rc4XqWB5MzBt0oEwgpB6krDiRze3Nwb/QdgDM14Qp6t0duTAa2oJtTdZSUTOhhi/IBeKLWyNdnRZg=
+        url: "https://discordapp.com/api/webhooks/552199916751945758/cgv3MMxLe217B7Q1Qx2KWmIWNYZy2IjzagbZ4QgTcDogevQ9_t0kLQsfjiaZ69tXfdkf/slack"
         threshold: 1%
       only_pulls: false
         branches: null
