@@ -3,6 +3,15 @@ codecov:
     require_ci_to_pass: yes
 
 coverage:
+  notify:
+    slack:
+      default:
+        url: secret:KorhpHIOSa3QHt5FDQzb7GhNRqpFLrZ4cwHppkJjZwuOO5XBJbkB8eyRTm44kFgvtAVcG0efGTL+2l6m8DkkNKa80coKyE/0PivSN7E85i1TKiZxOTzWaca3Lva/1Y1n8RAZejKGxb7BCWcye8aY2x1UWN+O1+rc4XqWB5MzBt0oEwgpB6krDiRze3Nwb/QdgDM14Qp6t0duTAa2oJtTdZSUTOhhi/IBeKLWyNdnRZg=
+        threshold: 1%
+      only_pulls: false
+        branches: null
+        flags: null
+    paths: null
   precision: 2
   round: down
   range: "70...100"
