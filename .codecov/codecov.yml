@@ -6,7 +6,7 @@ coverage:
   notify:
     slack:
       default:
-        url: "https://discordapp.com/api/webhooks/552199916751945758/cgv3MMxLe217B7Q1Qx2KWmIWNYZy2IjzagbZ4QgTcDogevQ9_t0kLQsfjiaZ69tXfdkf/slack"
+        url: "https://discordapp.com/api/webhooks/552199916751945758/cgv3MMxLe217B7Q1Qx2KWmIWNYZy2IjzagbZ4QgTcDogevQ9_t0kLQsfjiaZ69tXfdkf"
         threshold: 1%
 
   precision: 2
