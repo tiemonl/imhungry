@@ -3,6 +3,12 @@ codecov:
     require_ci_to_pass: yes
 
 coverage:
+  notify:
+    slack:
+      default:
+        url: "https://discordapp.com/api/webhooks/552199916751945758/cgv3MMxLe217B7Q1Qx2KWmIWNYZy2IjzagbZ4QgTcDogevQ9_t0kLQsfjiaZ69tXfdkf/slack"
+        threshold: 1%
+
   precision: 2
   round: down
   range: "70...100"
