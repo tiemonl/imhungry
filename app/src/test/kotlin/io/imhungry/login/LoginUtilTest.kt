@@ -10,10 +10,13 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 
-internal class LoginUtilKtTest {
+internal class LoginUtilTest {
 
     @RelaxedMockK
     private lateinit var mockActivity: AppCompatActivity
+
+    @RelaxedMockK
+    private lateinit var mockFailureCallback: AuthFailureCallback
 
     @BeforeEach
     fun init() {
@@ -24,5 +27,15 @@ internal class LoginUtilKtTest {
     fun `GIVEN login activity WHEN handle login result THEN verify home launched`() {
         mockActivity.handleLoginActivityResult(LoginConstants.RC_SIGN_IN, AppCompatActivity.RESULT_OK, null)
         verify { mockActivity.startActivity(any()) }
+    }
+
+    @Test
+    fun `GIVEN login activity WHEN handle login failed result THEN verify home launched fail`() {
+        mockActivity.handleLoginActivityResult(
+            LoginConstants.RC_SIGN_IN,
+            AppCompatActivity.RESULT_CANCELED,
+            mockFailureCallback
+        )
+        verify { mockFailureCallback.invoke() }
     }
 }

@@ -6,8 +6,6 @@ import com.firebase.ui.auth.AuthUI
 import io.imhungry.R
 import io.imhungry.home.ui.HomeActivity
 import io.imhungry.login.LoginConstants.RC_SIGN_IN
-import io.imhungry.notifications.NotificationHelper
-import io.imhungry.notifications.NotificationPriority
 
 internal object LoginConstants {
     val AUTH_PROVIDERS = listOf(
@@ -34,7 +32,7 @@ fun AppCompatActivity.launchLoginActivity() {
 fun AppCompatActivity.handleLoginActivityResult(
     requestCode: Int,
     resultCode: Int,
-    failureCallback: (() -> Unit)? = null
+    failureCallback: AuthFailureCallback? = null
 ) {
     when (requestCode) {
         RC_SIGN_IN -> {
