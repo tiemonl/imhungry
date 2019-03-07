@@ -8,6 +8,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
@@ -40,9 +41,21 @@ class MapItemAdapter(
             ).show()
         }
         holder.itemTitle.text = item?.name
+        holder.ratingValue.text = "${item?.rating} Stars"
+        // TODO Cost and distance
+        holder.distance.text = "1.0 mi"
+        holder.businessDescription.text = "A restaurant that is known for a thing"
     }
 
     inner class RestaurantViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val itemTitle: TextView = itemView.findViewById(R.id.itemTitle)
+        val imagePager: ViewPager = itemView.findViewById(R.id.businessImages)
+
+        val itemTitle: TextView = itemView.findViewById(R.id.businessName)
+
+        val ratingValue: TextView = itemView.findViewById(R.id.ratingValue)
+
+        val distance: TextView = itemView.findViewById(R.id.distance)
+
+        val businessDescription: TextView = itemView.findViewById(R.id.businessDescription)
     }
 }

@@ -25,6 +25,7 @@ class MapViewModel @Inject constructor(
         withContext(Dispatchers.IO) {
             val request = PlacesApi.nearbySearchQuery(geoContext, location)
                 .rankby(RankBy.DISTANCE)
+                .custom("fields", "*")
             if (type != null) {
                 request.type(type)
             }

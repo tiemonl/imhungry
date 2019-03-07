@@ -1,11 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:layout_height="216dp"
+    android:orientation="vertical">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/businessImages"
+        android:layout_width="match_parent"
+        android:layout_height="128dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/businessInfo"
+            android:layout_width="192dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/businessName"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:text="That One Restaurant" />
+
+            <LinearLayout
+                android:id="@+id/ratingInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ratingValue"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="1.6 Stars" />
+                <!-- TODO Add star ratings -->
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/distance"
+                style="@style/TextAppearance.MaterialComponents.Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="1.6 mi" />
+
+        </LinearLayout>
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/itemTitle"
+        android:id="@+id/businessDescription"
+        style="@style/TextAppearance.MaterialComponents.Body2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:text="Well known for that one thing, they server many foods, beverages, and other things you can expect" />
 </LinearLayout>
