@@ -50,8 +50,10 @@
     <string name="navigation_home">Home</string>
 
     <!-- Settings -->
-    <string name="settings_logout_summary_template">You are logged in as %1$s</string>
-    <string name="settings_logout_title">Log out</string>
-    <string name="settings_logout_key">logout</string>
+    <string name="settings_summary_template_loggedin">You are logged in as\n%1$s</string>
+    <string name="settings_summary_loggedout">You are logged out</string>
+    <string name="settings_title_login">Log in</string>
+    <string name="settings_title_logout">Log out</string>
+    <string name="settings_user_state">logout</string>
     <string name="settings_category_other_title">Other</string>
 </resources>

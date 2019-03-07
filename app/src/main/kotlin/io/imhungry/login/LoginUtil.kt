@@ -1,5 +1,6 @@
 package io.imhungry.login
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import com.firebase.ui.auth.AuthUI
@@ -17,7 +18,7 @@ private object LoginConstants {
     const val RC_SIGN_IN = 889
 }
 
-fun AppCompatActivity.launchLoginActivity() {
+fun Activity.launchLoginActivity() {
     startActivityForResult(
         AuthUI.getInstance().createSignInIntentBuilder()
             .setAvailableProviders(
@@ -31,7 +32,7 @@ fun AppCompatActivity.launchLoginActivity() {
     )
 }
 
-fun AppCompatActivity.handleLoginActivityResult(
+fun Activity.handleLoginActivityResult(
     requestCode: Int,
     resultCode: Int,
     failureCallback: (() -> Unit)? = null
