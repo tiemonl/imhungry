@@ -4,7 +4,7 @@
     android:layout_height="216dp"
     android:orientation="vertical">
 
-    <androidx.viewpager.widget.ViewPager
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/businessImages"
         android:layout_width="match_parent"
         android:layout_height="128dp" />
