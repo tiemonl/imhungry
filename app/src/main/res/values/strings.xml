@@ -6,7 +6,7 @@
     <string name="primary_notification_channel_description">imhungry info</string>
     <string name="primary_notification_channel_name">imhungry notifications</string>
 
-    <!--Firebase auth strings-->
+    <!-- Firebase auth strings -->
     <string name="hint_user_id">User ID</string>
     <string name="get_custom_token">Get Token</string>
     <string name="sign_in">Sign In</string>
@@ -44,8 +44,14 @@
     <string name="title_activity_maps">Map</string>
     <string name="description_logo_imhungry">imhungry Logo</string>
 
-    <!--Bottom Navigation Bar strings-->
+    <!-- Bottom Navigation Bar strings -->
     <string name="navigation_more">More</string>
     <string name="navigation_map">Map</string>
     <string name="navigation_home">Home</string>
+
+    <!-- Settings -->
+    <string name="settings_logout_summary_template">You are logged in as %1$s</string>
+    <string name="settings_logout_title">Log out</string>
+    <string name="settings_logout_key">logout</string>
+    <string name="settings_category_other_title">Other</string>
 </resources>
