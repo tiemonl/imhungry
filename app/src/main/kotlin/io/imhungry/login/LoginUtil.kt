@@ -2,7 +2,6 @@ package io.imhungry.login
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import com.firebase.ui.auth.AuthUI
 import io.imhungry.R
 import io.imhungry.home.ui.HomeActivity
@@ -39,7 +38,7 @@ fun Activity.handleLoginActivityResult(
 ) {
     when (requestCode) {
         RC_SIGN_IN -> {
-            if (resultCode == AppCompatActivity.RESULT_OK) {
+            if (resultCode == Activity.RESULT_OK) {
                 startActivity(Intent(this, HomeActivity::class.java))
                 NotificationHelper(this).sendNotificationNow(
                     "Welcome!",
