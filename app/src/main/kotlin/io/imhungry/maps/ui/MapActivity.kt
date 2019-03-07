@@ -26,11 +26,12 @@ import io.imhungry.R
 import io.imhungry.maps.ui.adapters.MapItemAdapter
 import io.imhungry.maps.vm.MapViewModel
 import io.imhungry.common.ui.BaseActivity
+import io.imhungry.common.ui.NavigationActivity
 import kotlinx.android.synthetic.main.activity_map.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class MapActivity : BaseActivity(), OnMapReadyCallback {
+class MapActivity : NavigationActivity(), OnMapReadyCallback {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
