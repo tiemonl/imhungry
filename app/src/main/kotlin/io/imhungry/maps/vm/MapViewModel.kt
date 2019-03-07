@@ -14,7 +14,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MapViewModel @Inject constructor(
-    private val geoContext: GeoApiContext
+    val geoContext: GeoApiContext
 ) : BaseViewModel() {
 
     val mapData = MutableLiveData<MutableList<PlacesSearchResult>>().apply {
