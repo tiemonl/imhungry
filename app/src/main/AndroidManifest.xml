@@ -33,6 +33,7 @@
         <activity
             android:name=".maps.ui.MapActivity"
             android:parentActivityName=".home.ui.HomeActivity" />
+        <activity android:name=".login.LoginInteractorActivity" />
     </application>
 
 </manifest>

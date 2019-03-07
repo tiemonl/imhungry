@@ -1,7 +1,7 @@
 package io.imhungry.login
 
+import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import com.firebase.ui.auth.AuthUI
 import io.imhungry.R
 import io.imhungry.home.ui.HomeActivity
@@ -17,7 +17,7 @@ private object LoginConstants {
     const val RC_SIGN_IN = 889
 }
 
-fun AppCompatActivity.launchLoginActivity() {
+fun Activity.launchLoginActivity() {
     startActivityForResult(
         AuthUI.getInstance().createSignInIntentBuilder()
             .setAvailableProviders(
@@ -31,14 +31,14 @@ fun AppCompatActivity.launchLoginActivity() {
     )
 }
 
-fun AppCompatActivity.handleLoginActivityResult(
+fun Activity.handleLoginActivityResult(
     requestCode: Int,
     resultCode: Int,
     failureCallback: (() -> Unit)? = null
 ) {
     when (requestCode) {
         RC_SIGN_IN -> {
-            if (resultCode == AppCompatActivity.RESULT_OK) {
+            if (resultCode == Activity.RESULT_OK) {
                 startActivity(Intent(this, HomeActivity::class.java))
                 NotificationHelper(this).sendNotificationNow(
                     "Welcome!",
