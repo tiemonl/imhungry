@@ -76,10 +76,10 @@ class MapItemAdapter(
         holder.imagesView.adapter = PlacesImageAdapter(context, geoContext, imagesLiveDate, imageCache)
 
         holder.itemTitle.text = item?.name
-        holder.ratingValue.text = "${item?.rating} Stars"
-        // TODO Cost and distance
-        holder.distance.text = "1.0 mi"
-        holder.businessDescription.text = "A restaurant that is known for a thing"
+        holder.ratingValue.text = context.getString(R.string.business_rating_template, item?.rating)
+        // TODO Add cost icons and calculate distance
+        holder.distance.text = context.getString(R.string.business_distance_template_miles, 0.0)
+        holder.businessDescription.text = ""
     }
 
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
