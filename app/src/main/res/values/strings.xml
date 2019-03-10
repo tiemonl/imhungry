@@ -56,4 +56,8 @@
     <string name="settings_title_logout">Log out</string>
     <string name="settings_user_state">logout</string>
     <string name="settings_category_other_title">Other</string>
+
+    <!-- Business Strings -->
+    <string name="business_rating_template">%.1f Stars</string>
+    <string name="business_distance_template_miles">%.1f mi</string>
 </resources>

@@ -15,6 +15,7 @@ import com.google.maps.GeoApiContext
 import com.google.maps.PlacesApi
 import io.imhungry.R
 import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.Channel
 import kotlin.math.roundToInt
 
 
@@ -25,12 +26,12 @@ class PlacesImageAdapter(
     private val imageCache: LruCache<String, Bitmap>
 ) : RecyclerView.Adapter<PlacesImageAdapter.PlaceImageViewHolder>() {
 
-
     private val job = SupervisorJob()
     private val adapterScope = CoroutineScope(Dispatchers.Main + job)
 
     private val inflater = LayoutInflater.from(context)
 
+    // Convert 128 DP (Height of image carousel) to Pixels
     private val imageMaxHeight = Math.ceil(
         TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
@@ -51,14 +52,14 @@ class PlacesImageAdapter(
             var imageBitmap: Bitmap? = null
             withContext(Dispatchers.IO) {
                 imageIdentifiers.value?.getOrNull(position)?.let {
-                    imageBitmap = imageCache[it] ?: loadImage(it)
+                    imageBitmap = imageCache[it] ?: downloadImage(it)
                 }
             }
             holder.imageView.setImageBitmap(imageBitmap)
         }
     }
 
-    private fun loadImage(it: String): Bitmap {
+    private fun downloadImage(it: String): Bitmap {
         val imageResult = PlacesApi.photo(geoContext, it).maxHeight(imageMaxHeight).await()
         val image = BitmapFactory.decodeByteArray(imageResult.imageData, 0, imageResult.imageData.size)
         imageCache.put(it, image)

@@ -24,8 +24,7 @@
                 android:id="@+id/businessName"
                 style="@style/TextAppearance.MaterialComponents.Headline6"
                 android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:text="That One Restaurant" />
+                android:layout_height="28dp" />
 
             <LinearLayout
                 android:id="@+id/ratingInfo"
@@ -37,9 +36,8 @@
                     android:id="@+id/ratingValue"
                     style="@style/TextAppearance.MaterialComponents.Body2"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="1.6 Stars" />
-                <!-- TODO Add star ratings -->
+                    android:layout_height="match_parent" />
+                <!-- TODO Add star rating icons -->
             </LinearLayout>
         </LinearLayout>
 
@@ -53,8 +51,7 @@
                 android:id="@+id/distance"
                 style="@style/TextAppearance.MaterialComponents.Body2"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:text="1.6 mi" />
+                android:layout_height="20dp" />
 
         </LinearLayout>
     </LinearLayout>
@@ -64,6 +61,5 @@
         style="@style/TextAppearance.MaterialComponents.Body2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxLines="2"
-        android:text="Well known for that one thing, they server many foods, beverages, and other things you can expect" />
+        android:maxLines="2" />
 </LinearLayout>
