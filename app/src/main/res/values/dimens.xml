@@ -8,6 +8,15 @@
     <dimen name="title_bottom_margin">16dp</dimen>
     <dimen name="field_width_standard">160dp</dimen>
 
+    <dimen name="imhungry_space_2">2dp</dimen>
+
     <!-- Bottom Nav Fragment -->
     <dimen name="nav_bar_height">50dp</dimen>
+
+    <dimen name="restaurant_detail_height">52dp</dimen>
+    <dimen name="restaurant_info_width">192dp</dimen>
+    <dimen name="restaurant_title_height">28dp</dimen>
+    <dimen name="restaurant_info_item_height">20dp</dimen>
+    <dimen name="restaurant_image_height">128dp</dimen>
+    <dimen name="restaurant_height">216dp</dimen>
 </resources>

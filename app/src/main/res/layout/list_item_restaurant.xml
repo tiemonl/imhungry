@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="216dp"
+    android:layout_height="@dimen/restaurant_height"
     android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/businessImages"
         android:layout_width="match_parent"
-        android:layout_height="128dp" />
+        android:layout_height="@dimen/restaurant_image_height" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_height="@dimen/restaurant_detail_height"
         android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/businessInfo"
-            android:layout_width="192dp"
+            android:layout_width="@dimen/restaurant_info_width"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
@@ -24,12 +24,12 @@
                 android:id="@+id/businessName"
                 style="@style/TextAppearance.MaterialComponents.Headline6"
                 android:layout_width="wrap_content"
-                android:layout_height="28dp" />
+                android:layout_height="@dimen/restaurant_title_height" />
 
             <LinearLayout
                 android:id="@+id/ratingInfo"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
+                android:layout_height="@dimen/restaurant_info_item_height"
                 android:orientation="horizontal">
 
                 <TextView
@@ -51,7 +51,7 @@
                 android:id="@+id/distance"
                 style="@style/TextAppearance.MaterialComponents.Body2"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp" />
+                android:layout_height="@dimen/restaurant_info_item_height" />
 
         </LinearLayout>
     </LinearLayout>
