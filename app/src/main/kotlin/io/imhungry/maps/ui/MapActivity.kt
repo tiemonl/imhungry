@@ -72,7 +72,7 @@ class MapActivity : NavigationActivity(), OnMapReadyCallback {
         map.uiSettings.isZoomControlsEnabled = true
 
         mapItems.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        mapItems.adapter = MapItemAdapter(this, mapViewModel.mapData, map)
+        mapItems.adapter = MapItemAdapter(this, mapViewModel.geoContext, mapViewModel.mapData, map)
 
         mapViewModel.mapData.observe(this, Observer { results ->
             map.clear()
