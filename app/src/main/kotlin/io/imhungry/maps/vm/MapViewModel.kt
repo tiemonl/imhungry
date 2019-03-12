@@ -14,7 +14,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MapViewModel @Inject constructor(
-    private val geoContext: GeoApiContext
+    val geoContext: GeoApiContext
 ) : BaseViewModel() {
 
     val mapData = MutableLiveData<MutableList<PlacesSearchResult>>().apply {
@@ -25,6 +25,7 @@ class MapViewModel @Inject constructor(
         withContext(Dispatchers.IO) {
             val request = PlacesApi.nearbySearchQuery(geoContext, location)
                 .rankby(RankBy.DISTANCE)
+                .custom("fields", "*")
             if (type != null) {
                 request.type(type)
             }

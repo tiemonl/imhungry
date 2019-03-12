@@ -5,22 +5,20 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.ViewModelProviders
-import com.google.firebase.auth.FirebaseAuth
 import io.imhungry.R
 import io.imhungry.common.di.ViewModelFactory
 import io.imhungry.common.ui.BaseActivity
+import io.imhungry.common.ui.NavigationActivity
 import io.imhungry.home.vm.HomeViewModel
 import io.imhungry.login.handleLoginActivityResult
 import io.imhungry.notifications.NotificationHelper
 import io.imhungry.notifications.NotificationPriority
 import io.imhungry.maps.ui.MapActivity
+import io.imhungry.login.launchLoginActivity
 import io.imhungry.settings.SettingsActivity
-import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-class HomeActivity : BaseActivity() {
-
-    private val auth by lazy { FirebaseAuth.getInstance() }
+class HomeActivity : NavigationActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -31,7 +29,7 @@ class HomeActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
 
         homeViewModel = ViewModelProviders.of(this, viewModelFactory)[HomeViewModel::class.java]
-
+      
         logoutButton.setOnClickListener {
             auth.signOut()
         }

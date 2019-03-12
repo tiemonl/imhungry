@@ -32,7 +32,9 @@
 
         <activity
             android:name=".maps.ui.MapActivity"
+            android:label="@string/title_activity_maps"
             android:parentActivityName=".home.ui.HomeActivity" />
+        <activity android:name=".login.LoginInteractorActivity" />
     </application>
 
 </manifest>
