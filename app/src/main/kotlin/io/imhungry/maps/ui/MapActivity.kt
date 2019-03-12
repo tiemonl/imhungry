@@ -26,12 +26,11 @@ import io.imhungry.R
 import io.imhungry.maps.ui.adapters.MapItemAdapter
 import io.imhungry.maps.vm.MapViewModel
 import io.imhungry.common.ui.BaseActivity
-import io.imhungry.common.ui.NavigationActivity
 import kotlinx.android.synthetic.main.activity_map.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class MapActivity : NavigationActivity(), OnMapReadyCallback {
+class MapActivity : BaseActivity(), OnMapReadyCallback {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -72,7 +71,7 @@ class MapActivity : NavigationActivity(), OnMapReadyCallback {
         map.uiSettings.isZoomControlsEnabled = true
 
         mapItems.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        mapItems.adapter = MapItemAdapter(this, mapViewModel.geoContext, mapViewModel.mapData, map)
+        mapItems.adapter = MapItemAdapter(this, mapViewModel.mapData, map)
 
         mapViewModel.mapData.observe(this, Observer { results ->
             map.clear()

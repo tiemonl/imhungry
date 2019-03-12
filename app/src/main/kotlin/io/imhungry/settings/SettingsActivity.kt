@@ -10,9 +10,5 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         title = getString(R.string.action_bar_settings_label)
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.settingsContainer, SettingsFragment())
-            .commit()
     }
 }
