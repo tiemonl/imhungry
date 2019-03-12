@@ -33,12 +33,12 @@ jobs:
         command: ./gradlew lint test
     - run:
         name: Coverage Reports
-        command: ./gradlew jacocoTestReport connectedCheck
+        command: ./gradlew jacocoTestReport
     - run:
         name: Codecov Setup
         command: sudo mv .codecov/codecov.yml .codecov.yml
     - codecov/upload:
-        file: app/build/reports/coverage/debug/report.xml
+        file: app/build/reports/jacoco/jacocoTestDebugUnitTestReport/jacocoTestDebugUnitTestReport.xml
     - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
         path: app/build/reports
         destination: reports
