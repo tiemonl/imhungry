@@ -34,7 +34,7 @@ fun Activity.launchLoginActivity() {
 fun Activity.handleLoginActivityResult(
     requestCode: Int,
     resultCode: Int,
-    failureCallback: (() -> Unit)? = null
+    failureCallback: AuthFailureCallback? = null
 ) {
     when (requestCode) {
         RC_SIGN_IN -> {
