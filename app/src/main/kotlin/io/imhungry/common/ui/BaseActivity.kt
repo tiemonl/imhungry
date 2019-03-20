@@ -5,13 +5,17 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import dagger.android.AndroidInjection
+import io.imhungry.login.AuthFailureCallback
 import io.imhungry.login.handleLoginActivityResult
+import io.imhungry.login.launchLoginActivity
 
 abstract class BaseActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 
     protected var userUnauthenticatedHandler: (() -> Unit)? = null
 
-    protected var loginFailureHandler: (() -> Unit)? = null
+    protected var loginFailureHandler = object : AuthFailureCallback {
+        override fun invoke() = launchLoginActivity()
+    }
 
     private val firebaseAuth by lazy { FirebaseAuth.getInstance() }
 
