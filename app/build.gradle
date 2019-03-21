@@ -12,6 +12,8 @@ apply plugin: 'jacoco-android'
 
 apply plugin: 'de.mannodermaus.android-junit5'
 
+apply plugin: 'com.github.kt3k.coveralls'
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -61,6 +63,10 @@ tasks.withType(Test) {
 jacocoAndroidUnitTestReport {
     excludes += ['**/di/*',
                  '**/*Impl*']
+}
+
+coveralls {
+    jacocoReportPath 'build/reports/jacoco/jacocoTestDebugUnitTestReport/jacocoTestDebugUnitTestReport.xml'
 }
 
 dependencies {
