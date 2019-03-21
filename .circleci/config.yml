@@ -33,7 +33,7 @@ jobs:
         command: ./gradlew lint test
     - run:
         name: Coverage Reports
-        command: ./gradlew jacocoTestReport
+        command: ./gradlew jacocoTestReport coveralls
     - run:
         name: Codecov Setup
         command: sudo mv .codecov/codecov.yml .codecov.yml
