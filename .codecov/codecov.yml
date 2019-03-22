@@ -6,7 +6,9 @@ coverage:
   notify:
     slack:
       default:
-        url: "https://discordapp.com/api/webhooks/552199916751945758/cgv3MMxLe217B7Q1Qx2KWmIWNYZy2IjzagbZ4QgTcDogevQ9_t0kLQsfjiaZ69tXfdkf/slack"
+        url: "secret:SKAZ3jSSYtOza9kvrXgIPg7zMC9QN5fkojd+0z/xXB6ptHXweRCAoJIIf7agHssB2TKLLH6v9hB1AeYfVT4V/N1LfaaEeWLmchZwpsRdJ/bIH4jsVkUqElVw2/+Srn8BxwqifxWL+z/8wS+rUR1vFlIkQuOOAfO4RKMpP/4hAz2byu1k9TCW124R4EAwoaX8ROmJeZzUHXfTOK7RxS9cujljVQaQLLFxZ/XMZ0fo/QY="
+        threshold: null
+        attachments: "sunburst, diff"
 
   precision: 2
   round: down
@@ -14,8 +16,6 @@ coverage:
 
   status:
     project: yes
-    patch: off
-    changes: no
 
 parsers:
   gcov:
@@ -32,3 +32,4 @@ comment:
 
 ignore:
   - "*/di/*" #dependency injections
+  - "**/*Impl*"
