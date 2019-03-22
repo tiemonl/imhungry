@@ -6,7 +6,7 @@ coverage:
   notify:
     slack:
       default:
-        url: "secret:SKAZ3jSSYtOza9kvrXgIPg7zMC9QN5fkojd+0z/xXB6ptHXweRCAoJIIf7agHssB2TKLLH6v9hB1AeYfVT4V/N1LfaaEeWLmchZwpsRdJ/bIH4jsVkUqElVw2/+Srn8BxwqifxWL+z/8wS+rUR1vFlIkQuOOAfO4RKMpP/4hAz2byu1k9TCW124R4EAwoaX8ROmJeZzUHXfTOK7RxS9cujljVQaQLLFxZ/XMZ0fo/QY="
+        url: "secret:LYkSVa7ylP5lIC31WpDt1Ja2Uq3Fg0HTaouEEnXT1VrbuAgQ+JP7mrkqmaVQEefvl6r9BevB8d/AGqE8v7YkEMcFevwsiUw5vK0VSMlBCBKUCjDZMAv32E836rtrfTCj7yQnwoMQ96eEx2XRBstN7Qe6T8Emk4cWCuvFeatdqna7yLKD8m81jrk2DceOPAq36CFuygyjNwQsnTe9B6hGrW995e5ovO24cU9TFvCdXR0="
         threshold: null
         attachments: "sunburst, diff"
 
