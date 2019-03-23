@@ -4,6 +4,7 @@ orbs:
 jobs:
   build:
     working_directory: ~/imhungry
+    parallelism: 4
     docker:
     - image: circleci/android:api-28
     environment:
