@@ -48,6 +48,7 @@
     <string name="navigation_more">More</string>
     <string name="navigation_map">Map</string>
     <string name="navigation_home">Home</string>
+    <string name="navigation_calendar">Calendar</string>
 
     <!-- Settings -->
     <string name="settings_summary_template_loggedin">You are logged in as\n%1$s</string>
