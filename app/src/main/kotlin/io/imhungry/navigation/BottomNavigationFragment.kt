@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import io.imhungry.R
+import io.imhungry.calendar.ui.CalendarActivity
 import io.imhungry.home.ui.HomeActivity
 import io.imhungry.maps.ui.MapActivity
 import kotlinx.android.synthetic.main.fragment_bottom_navigation.*
@@ -73,6 +74,7 @@ class BottomNavigationFragment : Fragment(), BottomNavigationView.OnNavigationIt
         private val NAVIGATION_DESTINATION_MAP = listOf(
             R.id.navigation_home to HomeActivity::class,
             R.id.navigation_Map to MapActivity::class,
+            R.id.navigation_calendar to CalendarActivity::class,
             R.id.navigation_more to null
         )
     }

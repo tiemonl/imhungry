@@ -9,6 +9,10 @@
         android:icon="@drawable/ic_navigation_map"
         android:title="@string/navigation_map" />
     <item
+        android:id="@+id/navigation_calendar"
+        android:icon="@drawable/ic_navigation_calendar"
+        android:title="@string/navigation_calendar"/>
+    <item
         android:id="@+id/navigation_more"
         android:icon="@drawable/ic_navigation_more"
         android:title="@string/navigation_more" />
