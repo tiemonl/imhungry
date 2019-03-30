@@ -16,6 +16,7 @@ import io.imhungry.R
 import io.imhungry.calendar.ui.CalendarActivity
 import io.imhungry.home.ui.HomeActivity
 import io.imhungry.maps.ui.MapActivity
+import io.imhungry.restaurantLists.ui.RestaurantListsActivtiy
 import kotlinx.android.synthetic.main.fragment_bottom_navigation.*
 import kotlin.reflect.KClass
 
@@ -75,6 +76,7 @@ class BottomNavigationFragment : Fragment(), BottomNavigationView.OnNavigationIt
             R.id.navigation_home to HomeActivity::class,
             R.id.navigation_Map to MapActivity::class,
             R.id.navigation_calendar to CalendarActivity::class,
+            R.id.navigation_restaurant_lists to RestaurantListsActivtiy::class,
             R.id.navigation_more to null
         )
     }
