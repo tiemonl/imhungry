@@ -61,4 +61,5 @@
     <!-- Business Strings -->
     <string name="business_rating_template">%.1f Stars</string>
     <string name="business_distance_template_miles">%.1f mi</string>
+    <string name="navigation_restaurant_lists">Lists</string>
 </resources>
