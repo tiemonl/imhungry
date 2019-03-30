@@ -12,6 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".restaurantLists.ui.RestaurantListsActivtiy"/>
+        <activity android:name=".calendar.ui.CalendarActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -20,16 +22,14 @@
         <activity android:name=".launcher.ui.LauncherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".home.ui.HomeActivity" />
-
         <activity
             android:name=".settings.SettingsActivity"
             android:parentActivityName=".home.ui.HomeActivity" />
-
         <activity
             android:name=".maps.ui.MapActivity"
             android:label="@string/title_activity_maps"
