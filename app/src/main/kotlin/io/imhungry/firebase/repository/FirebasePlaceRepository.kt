@@ -7,12 +7,15 @@ import javax.inject.Inject
 @Deprecated("This isn't presently used because we get all data from Google places, and additionally we shouldn't allow users to create places.")
 class FirebasePlaceRepository @Inject constructor(
     db: FirebaseFirestore
-) : FirebaseBaseCollectionRepository(db.collection(FirebasePlace.FIREBASE_COLLECTION_NAME_PLACES)) {
+) : FirebaseBaseCollectionRepository<FirebasePlace>(
+    db.collection(FirebasePlace.FIREBASE_COLLECTION_NAME_PLACES),
+    FirebasePlace::class
+) {
 
-    suspend fun getPlace(placesId: String) = performSingleQuery<FirebasePlace>(
+    suspend fun getPlace(placesId: String) = performSingleQuery(
         collection.whereEqualTo(
             FirebasePlace::placesId.name,
             placesId
-        ).get()
+        )
     )
 }
