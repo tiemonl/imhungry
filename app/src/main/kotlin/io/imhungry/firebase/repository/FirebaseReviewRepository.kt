@@ -7,10 +7,13 @@ import javax.inject.Inject
 
 class FirebaseReviewRepository @Inject constructor(
     db: FirebaseFirestore
-) : FirebaseBaseCollectionRepository(db.collection(FirebaseReview.FIREBASE_COLLECTION_NAME_REVIEWS)) {
+) : FirebaseBaseCollectionRepository<FirebaseReview>(
+    db.collection(FirebaseReview.FIREBASE_COLLECTION_NAME_REVIEWS),
+    FirebaseReview::class
+) {
 
     private suspend fun queryReviews(field: String, value: String, limit: Long, startAt: Long) =
-        performListQuery<FirebaseReview>(
+        performListQuery(
             collection.whereEqualTo(
                 field,
                 value
@@ -21,7 +24,11 @@ class FirebaseReviewRepository @Inject constructor(
         queryReviews(FirebaseReview::placesId.name, placesId, limit, startAt)
 
     suspend fun getUserReviews(user: FirebaseUser, limit: Long = FIREBASE_REVIEW_DEFAULT_LIMIT, startAt: Long = 0) =
-        queryReviews(FirebaseReview::author.name, user.userId, limit, startAt)
+        queryReviews(FirebaseReview::authorUid.name, user.uid, limit, startAt)
+
+    suspend fun addReview(review: FirebaseReview) = performInsertion(review)
+
+    suspend fun deleteReview(reviewId: String) = performDeletion(reviewId)
 
     companion object {
         const val FIREBASE_REVIEW_DEFAULT_LIMIT = 5L

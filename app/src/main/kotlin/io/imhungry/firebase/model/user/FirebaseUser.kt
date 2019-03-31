@@ -4,7 +4,7 @@ import io.imhungry.firebase.model.user.privacy.FirebasePrivacyConfig
 import io.imhungry.firebase.model.user.privacy.FirebasePrivacyLevel.PUBLIC
 
 data class FirebaseUser(
-    val userId: String,
+    val uid: String,
     val username: String,
     val privacy: FirebasePrivacyConfig = FirebasePrivacyConfig(
         favorites = PUBLIC,
