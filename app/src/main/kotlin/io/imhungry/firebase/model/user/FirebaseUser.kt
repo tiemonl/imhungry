@@ -9,8 +9,13 @@ data class FirebaseUser(
     val privacy: FirebasePrivacyConfig = FirebasePrivacyConfig(
         favorites = PUBLIC,
         friendsList = PUBLIC,
-        history = PUBLIC,
-        profile = PUBLIC
+        history = PUBLIC
     ),
-    val profileImage: String?
-)
+    val profileImage: String?,
+    val friends: List<String>?,
+    val favorites: List<String>?
+) {
+    companion object {
+        const val FIREBASE_COLLECTION_NAME_USERS = "users"
+    }
+}
