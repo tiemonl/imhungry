@@ -17,7 +17,7 @@ class FirebaseReviewRepository @Inject constructor(
             collection.whereEqualTo(
                 field,
                 value
-            ).limit(limit).startAt(startAt).get()
+            ).limit(limit).startAt(startAt)
         )
 
     suspend fun getPlaceReviews(placesId: String, limit: Long = FIREBASE_REVIEW_DEFAULT_LIMIT, startAt: Long = 0) =

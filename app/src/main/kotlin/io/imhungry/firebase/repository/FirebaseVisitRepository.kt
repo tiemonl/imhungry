@@ -17,7 +17,7 @@ class FirebaseVisitRepository @Inject constructor(
             collection.whereEqualTo(
                 field,
                 value
-            ).limit(limit).startAt(startAt).get()
+            ).limit(limit).startAt(startAt)
         )
 
     suspend fun getPlaceVisits(placesId: String, limit: Long = FIREBASE_VISIT_DEFAULT_LIMIT, startAt: Long = 0) =
@@ -31,12 +31,12 @@ class FirebaseVisitRepository @Inject constructor(
             collection.whereArrayContains(
                 FirebaseVisit::userUids.name,
                 userId
-            ).limit(limit).startAt(startAt).get()
+            ).limit(limit).startAt(startAt)
         )
 
     suspend fun startVisit(visit: FirebaseVisit) = performInsertion(visit)
 
-    suspend fun endVisit(visitId: String) = performUpdate(visitId, FirebaseVisit::ended.name, Timestamp.now())
+    suspend fun endVisit(visitId: String) = performFieldUpdate(visitId, FirebaseVisit::ended.name, Timestamp.now())
 
     companion object {
         const val FIREBASE_VISIT_DEFAULT_LIMIT = 10L
