@@ -5,6 +5,7 @@ import dagger.Component
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
 import io.imhungry.MainApplication
+import io.imhungry.firebase.di.FirebaseProviderModule
 import io.imhungry.home.di.HomeModule
 import io.imhungry.maps.di.MapsModule
 import io.imhungry.notifications.di.NotificationModule
@@ -20,7 +21,8 @@ import javax.inject.Singleton
         ViewModelModule::class,
         MapsModule::class,
         HomeModule::class,
-        NotificationModule::class
+        NotificationModule::class,
+        FirebaseProviderModule::class
     ]
 )
 interface AppComponent : AndroidInjector<MainApplication> {
