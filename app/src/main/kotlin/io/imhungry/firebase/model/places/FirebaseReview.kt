@@ -3,7 +3,7 @@ package io.imhungry.firebase.model.places
 import com.google.firebase.Timestamp
 
 data class FirebaseReview(
-    val author: String,
+    val authorUid: String,
     val comment: String,
     val created: Timestamp,
     val placesId: String,
