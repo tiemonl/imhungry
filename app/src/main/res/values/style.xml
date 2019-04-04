@@ -6,6 +6,16 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="navColor">@color/colorPrimary</item>
+    </style>
+
+    <!-- Night application theme -->
+    <style name="NightTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/nightColorPrimary</item>
+        <item name="colorPrimaryDark">@color/nightColorPrimaryDark</item>
+        <item name="colorAccent">@color/nightColorAccent</item>
+        <item name="navColor">@color/nightColorPrimary</item>
+        <item name="android:windowBackground">@color/nightColorPrimaryDark</item>
     </style>
 
     <!-- Activity with no Title -->
