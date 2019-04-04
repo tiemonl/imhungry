@@ -15,7 +15,23 @@
         <item name="colorPrimaryDark">@color/nightColorPrimaryDark</item>
         <item name="colorAccent">@color/nightColorAccent</item>
         <item name="navColor">@color/nightColorPrimary</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorSecondary">@color/grey_100</item>
+        <item name="android:color">@color/nightColorAccent</item>
+        <item name="alertDialogTheme">@style/DarkAlertDialogStyle</item>
         <item name="android:windowBackground">@color/nightColorPrimaryDark</item>
+    </style>
+
+    <style name="DarkAlertDialogStyle" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="colorAccent">@color/nightColorAccent</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/nightColorPrimaryDark</item>
+        <item name="buttonBarNegativeButtonStyle">@style/DarkNegativeButton</item>
+    </style>
+
+    <style name="DarkNegativeButton" parent="Widget.AppCompat.ButtonBar">
+        <item name="android:background">@color/nightColorPrimaryDark</item>
+        <item name="android:textColor">@color/nightColorAccent</item>
     </style>
 
     <!-- Activity with no Title -->
