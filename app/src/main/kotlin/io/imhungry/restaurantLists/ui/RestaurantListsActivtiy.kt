@@ -1,10 +1,10 @@
 package io.imhungry.restaurantLists.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import io.imhungry.R
+import io.imhungry.common.ui.NavigationActivity
 
-class RestaurantListsActivtiy : AppCompatActivity() {
+class RestaurantListsActivtiy : NavigationActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
