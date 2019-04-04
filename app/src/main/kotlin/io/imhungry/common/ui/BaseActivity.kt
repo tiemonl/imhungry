@@ -24,11 +24,7 @@ abstract class BaseActivity : AppCompatActivity(), FirebaseAuth.AuthStateListene
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-
-        when (theme()) {
-            getString(R.string.night_theme) -> setTheme(R.style.NightTheme)
-            else -> setTheme(R.style.AppTheme)
-        }
+        setAppTheme()
     }
 
     override fun onResume() {
@@ -52,9 +48,17 @@ abstract class BaseActivity : AppCompatActivity(), FirebaseAuth.AuthStateListene
         handleLoginActivityResult(requestCode, resultCode, loginFailureHandler)
     }
 
-    fun theme(): String? {
+    private fun setAppTheme() {
+        setTheme(theme())
+    }
+
+    private fun theme(): Int {
         val key = getString(R.string.settings_app_theme)
         val default = getString(R.string.default_theme)
-        return PreferenceManager.getDefaultSharedPreferences(this).getString(key, default)
+        val string = PreferenceManager.getDefaultSharedPreferences(this).getString(key, default)
+        when (string) {
+            getString(R.string.night_theme) -> return R.style.NightTheme
+            else -> return R.style.AppTheme
+        }
     }
 }
