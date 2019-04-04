@@ -57,6 +57,10 @@
     <string name="settings_title_logout">Log out</string>
     <string name="settings_user_state">logout</string>
     <string name="settings_category_other_title">Other</string>
+    <string name="settings_app_theme">app_theme</string>
+    <string name="default_theme">AppTheme</string>
+    <string name="default_theme_name">Default</string>
+    <string name="night_theme">Night</string>
 
     <!-- Business Strings -->
     <string name="business_rating_template">%.1f Stars</string>
