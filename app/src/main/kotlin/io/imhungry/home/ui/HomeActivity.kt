@@ -5,13 +5,15 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import io.imhungry.R
 import io.imhungry.common.di.ViewModelFactory
-import io.imhungry.common.ui.BaseActivity
 import io.imhungry.common.ui.NavigationActivity
+import io.imhungry.home.ui.adapters.HomeCardAdapter
 import io.imhungry.home.vm.HomeViewModel
-import io.imhungry.login.launchLoginActivity
 import io.imhungry.settings.SettingsActivity
+import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 class HomeActivity : NavigationActivity() {
@@ -25,6 +27,10 @@ class HomeActivity : NavigationActivity() {
         setContentView(R.layout.activity_main)
 
         homeViewModel = ViewModelProviders.of(this, viewModelFactory)[HomeViewModel::class.java]
+
+        cardList.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        val r = ArrayList<ArrayList<String>>()
+        cardList.adapter = HomeCardAdapter(r, this.applicationContext)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
