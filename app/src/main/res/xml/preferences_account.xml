@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+            android:icon="@drawable/ic_settings_account_display_name"
+            android:title="Display Name"
+            android:key="display_name"
+            android:summary="Sambath Pich"
+            android:defaultValue="Sambath Pich"/>
+
+
+    <EditTextPreference
+            android:icon="@drawable/ic_settings_account_dob"
+            android:title="Date of Birth"
+            android:key="date_of_birth"
+            android:summary="Jan-31-2000"
+            android:defaultValue="Jan-31-2000"/>
+
+
+    <EditTextPreference
+            android:icon="@drawable/ic_settings_account_email"
+            android:title="Email"
+            android:key="email"
+            android:summary="pich_sambath@gmail.com"
+            android:defaultValue="pich_sambath@gmail.com"/>
+
+
+    <EditTextPreference
+            android:icon="@drawable/ic_settings_account_password"
+            android:title="Password"
+            android:key="password"
+            android:summary="******"
+            android:defaultValue="******"/>
+
+    <Preference
+            android:icon="@drawable/ic_settings_account_signout"
+            android:title="Sign Out"
+            android:key="@string/sign_out"
+            android:summary="Click to sign out" />
+
+
+</PreferenceScreen>
