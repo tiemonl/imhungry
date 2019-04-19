@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+            android:icon="@drawable/ic_settings_restaurant_filers_option"
+            android:title="No Filter"
+            android:key="no_filter"
+            android:summaryOn="Specify Below"
+            android:summaryOff="Off" android:defaultValue="true"/>
+
+
+    <ListPreference
+            android:icon="@drawable/ic_settings_restaurant_filers_sort_by"
+            android:title="Sort By"
+            android:key="sort_by"
+            android:entries="@array/sort_by"
+            android:entryValues="@array/sort_by_values"
+            android:summary="Distance" />
+
+
+    <ListPreference
+            android:icon="@drawable/ic_settings_restaurant_filters_quick"
+            android:title="Quick Filter"
+            android:key="quick_filer"
+            android:entries="@array/quick_filter"
+            android:entryValues="@array/quick_filter_values"
+            android:summary="Lunch" />
+
+    <ListPreference
+            android:icon="@drawable/ic_settings_restaurant_filers_cuisine"
+            android:title="Cuisine"
+            android:key="cuisine"
+            android:entries="@array/cuisine"
+            android:entryValues="@array/cuisine_values"
+            android:summary="Fast Food" />
+
+
+</PreferenceScreen>
+

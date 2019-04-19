@@ -1,6 +1,7 @@
 package io.imhungry.settings
 
 import android.os.Bundle
+import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.firebase.auth.FirebaseAuth
 import io.imhungry.R
@@ -34,4 +35,40 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
         }
     }
+
+
+    override fun onPreferenceTreeClick(preference: Preference): Boolean {
+        return when (preference.key) {
+            getString(R.string.settings_category_restaurant_filters_key) -> {
+                val ft = fragmentManager!!.beginTransaction()
+                ft.replace(R.id.settingsContainer, SettingsDetails(), getString(R.string.settings_category_restaurant_filters_key))
+                ft.commit()
+                true
+            } getString(R.string.settings_category_notifications_key) -> {
+                val ft = fragmentManager!!.beginTransaction()
+                ft.replace(R.id.settingsContainer, SettingsDetails(), getString(R.string.settings_category_notifications_key))
+                ft.commit()
+                true
+            } getString(R.string.settings_category_general_key) -> {
+                val ft = fragmentManager!!.beginTransaction()
+                ft.replace(R.id.settingsContainer, SettingsDetails(), getString(R.string.settings_category_general_key))
+                ft.commit()
+                true
+            }  getString(R.string.settings_category_security_key) -> {
+                val ft = fragmentManager!!.beginTransaction()
+                ft.replace(R.id.settingsContainer, SettingsDetails(), getString(R.string.settings_category_security_key))
+                ft.commit()
+                true
+            }   getString(R.string.settings_category_account_key) -> {
+                val ft = fragmentManager!!.beginTransaction()
+                ft.replace(R.id.settingsContainer, SettingsDetails(), getString(R.string.settings_category_account_key))
+                ft.commit()
+                true
+            } else -> {
+                super.onPreferenceTreeClick(preference)
+            }
+        }
+    }
+
+
 }
