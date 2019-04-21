@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <SwitchPreference
+            android:icon="@drawable/ic_settings_security_allow"
+            android:title="Allow Location"
+            android:key="allow_location"
+            android:summaryOn="Enable"
+            android:summaryOff="Disable" />
+
+    <SwitchPreference
+            android:icon="@drawable/ic_settings_security_allow_friend"
+            android:title="Allow Others To Add"
+            android:key="allow_others_to_add"
+            android:summaryOn="Allowed"
+            android:summaryOff="Disallowed" />
+
+    <SwitchPreference
+            android:icon="@drawable/ic_settings_security_profile"
+            android:title="My Profile Access"
+            android:key="my_profile_access"
+            android:summaryOn="Allowed"
+            android:summaryOff="Disallowed" />
+
+</PreferenceScreen>

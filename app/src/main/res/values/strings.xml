@@ -57,6 +57,64 @@
     <string name="settings_title_logout">Log out</string>
     <string name="settings_user_state">logout</string>
     <string name="settings_category_other_title">Other</string>
+    <!--Preferences-->
+    <string name="settings_category_general_title">General Settings</string>
+    <string name="settings_category_general_key">general_settings</string>
+    <string-array name="unit_preference">
+        <item>Miles</item>
+        <item>Kilometers</item>
+    </string-array>
+    <string-array name="unit_preference_values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="theme">
+        <item>Default Theme</item>
+        <item>Dark Theme</item>
+        <item>White Theme</item>
+    </string-array>
+    <string name="settings_category_restaurant_filters_title">Restaurant Filters</string>
+    <string name="settings_category_restaurant_filters_key">restaurant_filers_key</string>
+    <string-array name="sort_by">
+        <item>Distance</item>
+        <item>Ratings</item>
+        <item>Price</item>
+    </string-array>
+    <string-array name="sort_by_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string-array name="quick_filter">
+        <item>Breakfast</item>
+        <item>Lunch</item>
+        <item>Dinner</item>
+    </string-array>
+    <string-array name="quick_filter_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string-array name="cuisine">
+        <item>Fast Food</item>
+        <item>Vegetarian</item>
+        <item>Buffet</item>
+        <item>Thai Food</item>
+    </string-array>
+    <string-array name="cuisine_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+    <string name="settings_category_notifications_title">Notifications</string>
+    <string name="settings_category_notifications_key">notifications_key</string>
+    <string name="settings_category_security_title">Security &amp; Location</string>
+    <string name="settings_category_security_key">security_key</string>
+    <string name="settings_category_account_title">Account</string>
+    <string name="settings_category_account_key">account_key</string>
+
+    <!--Theming-->
     <string name="settings_app_theme">app_theme</string>
     <string name="default_theme">AppTheme</string>
     <string name="default_theme_name">Default</string>
