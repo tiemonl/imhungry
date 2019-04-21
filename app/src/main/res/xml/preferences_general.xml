@@ -12,10 +12,11 @@
     <ListPreference
             android:icon="@drawable/ic_settings_general_theme"
             android:title="Theme"
-            android:key="theme"
+            android:key="app_theme"
             android:entries="@array/theme"
             android:entryValues="@array/theme_values"
-            android:summary="Dark Theme" />
+            android:summary="Dark Theme"
+            android:defaultValue="@string/default_theme"/>
 
 
     <EditTextPreference

@@ -31,17 +31,6 @@
             android:key="@string/settings_category_account_key"
             android:summary="Display Name, Email, Sign Out, etc." />
 
-    <PreferenceCategory
-        android:key="theme"
-        android:title="Look and Feel">
-        <ListPreference
-            android:key="app_theme"
-            android:title="Theme"
-            android:summary="%s"
-            android:entries="@array/themes"
-            android:entryValues="@array/theme_values"
-            android:defaultValue="@string/default_theme"/>
-    </PreferenceCategory>
     <PreferenceCategory android:title="@string/settings_category_other_title">
         <Preference android:key="@string/settings_user_state" />
     </PreferenceCategory>

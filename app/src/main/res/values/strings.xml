@@ -73,11 +73,6 @@
         <item>Dark Theme</item>
         <item>White Theme</item>
     </string-array>
-    <string-array name="theme_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
     <string name="settings_category_restaurant_filters_title">Restaurant Filters</string>
     <string name="settings_category_restaurant_filters_key">restaurant_filers_key</string>
     <string-array name="sort_by">
