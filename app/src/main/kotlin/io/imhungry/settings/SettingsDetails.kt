@@ -9,18 +9,14 @@ class SettingsDetails : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 
         //var fragment = getFragmentManager()?.findFragmentByTag("Network")
-        var fragment = fragmentManager
+        val fragment = fragmentManager
 
-        if (fragment?.findFragmentByTag(getString(R.string.settings_category_restaurant_filters_key)) != null) {
-            setPreferencesFromResource(R.xml.preferences_restaurant_filters, rootKey)
-        } else if (fragment?.findFragmentByTag(getString(R.string.settings_category_notifications_key)) != null) {
-            setPreferencesFromResource(R.xml.preferences_notifications, rootKey)
-        } else if (fragment?.findFragmentByTag(getString(R.string.settings_category_general_key)) != null) {
-            setPreferencesFromResource(R.xml.preferences_general, rootKey)
-        } else if (fragment?.findFragmentByTag(getString(R.string.settings_category_security_key)) != null) {
-            setPreferencesFromResource(R.xml.preferences_security_and_location, rootKey)
-        } else if (fragment?.findFragmentByTag(getString(R.string.settings_category_account_key)) != null) {
-            setPreferencesFromResource(R.xml.preferences_account, rootKey)
+        when {
+            fragment?.findFragmentByTag(getString(R.string.settings_category_restaurant_filters_key)) != null -> setPreferencesFromResource(R.xml.preferences_restaurant_filters, rootKey)
+            fragment?.findFragmentByTag(getString(R.string.settings_category_notifications_key)) != null -> setPreferencesFromResource(R.xml.preferences_notifications, rootKey)
+            fragment?.findFragmentByTag(getString(R.string.settings_category_general_key)) != null -> setPreferencesFromResource(R.xml.preferences_general, rootKey)
+            fragment?.findFragmentByTag(getString(R.string.settings_category_security_key)) != null -> setPreferencesFromResource(R.xml.preferences_security_and_location, rootKey)
+            fragment?.findFragmentByTag(getString(R.string.settings_category_account_key)) != null -> setPreferencesFromResource(R.xml.preferences_account, rootKey)
         }
 
     }
