@@ -1,10 +1,10 @@
 package io.imhungry.settings
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import io.imhungry.R
+import io.imhungry.common.ui.BaseActivity
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
