@@ -1,7 +1,7 @@
-package io.imhungry.firebase.repository
+package io.imhungry.repository.firebase.repository
 
 import com.google.firebase.firestore.FirebaseFirestore
-import io.imhungry.firebase.model.places.FirebasePlace
+import io.imhungry.repository.firebase.model.places.FirebasePlace
 import javax.inject.Inject
 
 @Deprecated("This isn't presently used because we get all data from Google places, and additionally we shouldn't allow users to create places.")

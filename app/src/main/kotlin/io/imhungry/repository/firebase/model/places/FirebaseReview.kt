@@ -1,4 +1,4 @@
-package io.imhungry.firebase.model.places
+package io.imhungry.repository.firebase.model.places
 
 import com.google.firebase.Timestamp
 
