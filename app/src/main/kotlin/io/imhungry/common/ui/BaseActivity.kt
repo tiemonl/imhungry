@@ -13,22 +13,28 @@ import io.imhungry.login.launchLoginActivity
 
 abstract class BaseActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 
+    private val firebaseAuth by lazy { FirebaseAuth.getInstance() }
+
+    private val currentAppTheme by lazy(::getAppThemeFromPreferences)
+
     protected var userUnauthenticatedHandler: (() -> Unit)? = null
 
     protected var loginFailureHandler = object : AuthFailureCallback {
         override fun invoke() = launchLoginActivity()
     }
 
-    private val firebaseAuth by lazy { FirebaseAuth.getInstance() }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        setAppTheme()
+        setTheme(currentAppTheme)
     }
 
     override fun onResume() {
         super.onResume()
+        if (getAppThemeFromPreferences() != currentAppTheme) {
+            startActivity(intent)
+            finish()
+        }
         firebaseAuth.addAuthStateListener(this)
     }
 
@@ -48,17 +54,12 @@ abstract class BaseActivity : AppCompatActivity(), FirebaseAuth.AuthStateListene
         handleLoginActivityResult(requestCode, resultCode, loginFailureHandler)
     }
 
-    private fun setAppTheme() {
-        setTheme(theme())
-    }
-
-    private fun theme(): Int {
-        val key = getString(R.string.settings_app_theme)
-        val default = getString(R.string.default_theme)
-        val string = PreferenceManager.getDefaultSharedPreferences(this).getString(key, default)
-        when (string) {
-            getString(R.string.night_theme) -> return R.style.NightTheme
-            else -> return R.style.AppTheme
+    private fun getAppThemeFromPreferences(): Int {
+        val preferenceThemeKey = getString(R.string.settings_app_theme)
+        val defaultTheme = getString(R.string.default_theme)
+        return when (PreferenceManager.getDefaultSharedPreferences(this).getString(preferenceThemeKey, defaultTheme)) {
+            getString(R.string.night_theme) -> R.style.NightTheme
+            else -> R.style.AppTheme
         }
     }
 }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+            android:icon="@drawable/ic_settings_general_unit"
+            android:title="Unit Preferences"
+            android:key="unit_preferences"
+            android:entries="@array/unit_preference"
+            android:entryValues="@array/unit_preference_values"
+            android:summary="Miles" />
+
+    <ListPreference
+            android:icon="@drawable/ic_settings_general_theme"
+            android:title="Theme"
+            android:key="app_theme"
+            android:entries="@array/theme"
+            android:entryValues="@array/theme_values"
+            android:summary="Dark Theme"
+            android:defaultValue="@string/default_theme"/>
+
+
+    <EditTextPreference
+            android:icon="@drawable/ic_settings_general_font_size"
+            android:title="Font Size"
+            android:key="font_size"
+            android:summary="12pt"
+            android:defaultValue="12"/>
+
+    <SwitchPreference
+            android:icon="@drawable/ic_settings_general_bold_text"
+            android:title="Bold Text"
+            android:key="bold_text"
+            android:summaryOn="On"
+            android:summaryOff="Off" />
+
+
+    <SwitchPreference
+            android:icon="@drawable/ic_settings_general_auto_update"
+            android:title="Auto Update"
+            android:key="auto_update"
+            android:summaryOn="On"
+            android:summaryOff="Off" />
+
+
+</PreferenceScreen>

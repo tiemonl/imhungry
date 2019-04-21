@@ -1,16 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory
-        android:key="theme"
-        android:title="Look and Feel">
-        <ListPreference
-            android:key="app_theme"
-            android:title="Theme"
-            android:summary="%s"
-            android:entries="@array/themes"
-            android:entryValues="@array/theme_values"
-            android:defaultValue="@string/default_theme"/>
-    </PreferenceCategory>
+<Preference
+            android:icon="@drawable/ic_settings_general"
+            android:title="@string/settings_category_general_title"
+            android:key="@string/settings_category_general_key"
+            android:summary="Miles, Theme, Font, etc." />
+
+    <Preference
+            android:icon="@drawable/ic_settings_restaurant_filters"
+            android:title="@string/settings_category_restaurant_filters_title"
+            android:key="@string/settings_category_restaurant_filters_key"
+            android:summary="Within 30 miles, Lunch, Fast Food" />
+
+    <Preference
+            android:icon="@drawable/ic_settings_notifications"
+            android:title="@string/settings_category_notifications_title"
+            android:key="@string/settings_category_notifications_key"
+            android:summary="Enabled" />
+
+    <Preference
+            android:icon="@drawable/ic_settings_security"
+            android:title="@string/settings_category_security_title"
+            android:key="@string/settings_category_security_key"
+            android:summary="Allow Location, Privacy, etc." />
+
+    <Preference
+            android:icon="@drawable/ic_settings_account"
+            android:title="@string/settings_category_account_title"
+            android:key="@string/settings_category_account_key"
+            android:summary="Display Name, Email, Sign Out, etc." />
+
     <PreferenceCategory android:title="@string/settings_category_other_title">
         <Preference android:key="@string/settings_user_state" />
     </PreferenceCategory>
