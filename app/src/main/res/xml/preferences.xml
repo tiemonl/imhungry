@@ -6,7 +6,6 @@
             android:key="@string/settings_category_general_key"
             android:summary="Miles, Theme, Font, etc." />
 
-
     <Preference
             android:icon="@drawable/ic_settings_restaurant_filters"
             android:title="@string/settings_category_restaurant_filters_title"
