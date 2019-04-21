@@ -34,6 +34,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
             }
         }
+
+        findPreference(getString(R.string.settings_app_theme))?.let {
+            it.setOnPreferenceChangeListener {_, _ ->
+                activity?.finish()
+                activity?.startActivity(activity?.intent)
+                true
+            }
+        }
     }
 
 
