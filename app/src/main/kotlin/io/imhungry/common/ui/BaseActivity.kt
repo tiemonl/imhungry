@@ -15,7 +15,7 @@ abstract class BaseActivity : AppCompatActivity(), FirebaseAuth.AuthStateListene
 
     private val firebaseAuth by lazy { FirebaseAuth.getInstance() }
 
-    private var appTheme: Int = 0
+    private val currentAppTheme by lazy(::getAppThemeFromPreferences)
 
     protected var userUnauthenticatedHandler: (() -> Unit)? = null
 
@@ -26,12 +26,12 @@ abstract class BaseActivity : AppCompatActivity(), FirebaseAuth.AuthStateListene
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        setAppTheme()
+        setTheme(currentAppTheme)
     }
 
     override fun onResume() {
         super.onResume()
-        if (theme() != appTheme) {
+        if (getAppThemeFromPreferences() != currentAppTheme) {
             startActivity(intent)
             finish()
         }
@@ -54,18 +54,12 @@ abstract class BaseActivity : AppCompatActivity(), FirebaseAuth.AuthStateListene
         handleLoginActivityResult(requestCode, resultCode, loginFailureHandler)
     }
 
-    private fun setAppTheme() {
-        appTheme = theme()
-        setTheme(appTheme)
-    }
-
-    private fun theme(): Int {
-        val key = getString(R.string.settings_app_theme)
-        val default = getString(R.string.default_theme)
-        val string = PreferenceManager.getDefaultSharedPreferences(this).getString(key, default)
-        when (string) {
-            getString(R.string.night_theme) -> return R.style.NightTheme
-            else -> return R.style.AppTheme
+    private fun getAppThemeFromPreferences(): Int {
+        val preferenceThemeKey = getString(R.string.settings_app_theme)
+        val defaultTheme = getString(R.string.default_theme)
+        return when (PreferenceManager.getDefaultSharedPreferences(this).getString(preferenceThemeKey, defaultTheme)) {
+            getString(R.string.night_theme) -> R.style.NightTheme
+            else -> R.style.AppTheme
         }
     }
 }
