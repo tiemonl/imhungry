@@ -13,13 +13,15 @@ import io.imhungry.login.launchLoginActivity
 
 abstract class BaseActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 
+    private val firebaseAuth by lazy { FirebaseAuth.getInstance() }
+
+    private var appTheme: Int = 0
+
     protected var userUnauthenticatedHandler: (() -> Unit)? = null
 
     protected var loginFailureHandler = object : AuthFailureCallback {
         override fun invoke() = launchLoginActivity()
     }
-
-    private val firebaseAuth by lazy { FirebaseAuth.getInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -29,6 +31,10 @@ abstract class BaseActivity : AppCompatActivity(), FirebaseAuth.AuthStateListene
 
     override fun onResume() {
         super.onResume()
+        if (theme() != appTheme) {
+            startActivity(intent)
+            finish()
+        }
         firebaseAuth.addAuthStateListener(this)
     }
 
@@ -49,7 +55,8 @@ abstract class BaseActivity : AppCompatActivity(), FirebaseAuth.AuthStateListene
     }
 
     private fun setAppTheme() {
-        setTheme(theme())
+        appTheme = theme()
+        setTheme(appTheme)
     }
 
     private fun theme(): Int {
