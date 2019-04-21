@@ -63,4 +63,6 @@ app/schemas/*
 
 # Google Maps API
 google_maps_api.xml
+
+# DS_Store
 .DS_Store
