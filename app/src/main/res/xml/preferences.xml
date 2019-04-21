@@ -1,24 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <!--<CheckBoxPreference-->
-    <!--android:key="checkbox"-->
-    <!--android:summary="Tap to check if on or off"-->
-    <!--android:title="Checkbox Preference" />-->
-
-    <!--<ListPreference-->
-    <!--android:dialogTitle="Select duration"-->
-    <!--android:entries="@array/settings_category_network_list"-->
-    <!--android:entryValues="@array/settings_category_network_values"-->
-    <!--android:key="list"-->
-    <!--android:summary="Click to show a list to choose from"-->
-    <!--android:title="List Preference" />-->
-    <!--<PreferenceCategory android:title="@string/settings_category_other_title">-->
-    <!--<Preference android:key="@string/settings_user_state" />-->
-    <!--</PreferenceCategory>-->
-
-
-
-    <Preference
+<Preference
             android:icon="@drawable/ic_settings_general"
             android:title="@string/settings_category_general_title"
             android:key="@string/settings_category_general_key"
@@ -49,9 +31,18 @@
             android:key="@string/settings_category_account_key"
             android:summary="Display Name, Email, Sign Out, etc." />
 
-
-
-
-
-
+    <PreferenceCategory
+        android:key="theme"
+        android:title="Look and Feel">
+        <ListPreference
+            android:key="app_theme"
+            android:title="Theme"
+            android:summary="%s"
+            android:entries="@array/themes"
+            android:entryValues="@array/theme_values"
+            android:defaultValue="@string/default_theme"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/settings_category_other_title">
+        <Preference android:key="@string/settings_user_state" />
+    </PreferenceCategory>
 </PreferenceScreen>
