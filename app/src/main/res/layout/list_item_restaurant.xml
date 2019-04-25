@@ -22,7 +22,7 @@
 
             <TextView
                 android:id="@+id/businessName"
-                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textSize="16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/restaurant_title_height" />
 
@@ -34,7 +34,6 @@
 
                 <TextView
                     android:id="@+id/ratingValue"
-                    style="@style/TextAppearance.MaterialComponents.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
                 <!-- TODO Add star rating icons -->
@@ -49,7 +48,6 @@
 
             <TextView
                 android:id="@+id/distance"
-                style="@style/TextAppearance.MaterialComponents.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/restaurant_info_item_height" />
 
@@ -58,7 +56,6 @@
 
     <TextView
         android:id="@+id/businessDescription"
-        style="@style/TextAppearance.MaterialComponents.Body2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="2" />

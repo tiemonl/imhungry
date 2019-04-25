@@ -8,4 +8,8 @@
     <color name="grey_100">#F5F5F5</color>
     <color name="grey_300">#E0E0E0</color>
     <color name="grey_500">#9E9E9E</color>
+
+    <color name="nightColorPrimary">#393e46</color>
+    <color name="nightColorPrimaryDark">#232931</color>
+    <color name="nightColorAccent">#4ecca3</color>
 </resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+            android:icon="@drawable/ic_settings_notifications_block_all"
+            android:title="Block all"
+            android:key="block_all"
+            android:summaryOn="Enable"
+            android:summaryOff="Never show these notifications" />
+
+    <SwitchPreference
+            android:icon="@drawable/ic_settings_notifications_badges"
+            android:title="Show badge"
+            android:key="show_badge"
+            android:summaryOn="Show notifications as badges on home screen"
+            android:enabled="true"
+            android:summaryOff="Disabled" />
+
+    <SwitchPreference
+            android:icon="@drawable/ic_settings_notifcations_vibration"
+            android:title="Allow vibration"
+            android:key="allow_vibration"
+            android:summaryOn="Enabled"
+            android:summaryOff="Disabled" />
+
+    <CheckBoxPreference
+            android:icon="@drawable/ic_settings_notifications_general_news"
+            android:title="General News"
+            android:key="general_news"
+            android:summary="New version updates, special promotion, etc" />
+
+    <CheckBoxPreference
+            android:icon="@drawable/ic_settings_notifications_promotion"
+            android:title="Promotions"
+            android:key="promotion"
+            android:summary="Best offers, etc." />
+
+
+</PreferenceScreen>
