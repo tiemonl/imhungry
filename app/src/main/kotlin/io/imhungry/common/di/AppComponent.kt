@@ -8,6 +8,7 @@ import io.imhungry.MainApplication
 import io.imhungry.calendar.di.CalendarModule
 import io.imhungry.firebase.di.FirebaseProviderModule
 import io.imhungry.home.di.HomeModule
+import io.imhungry.launcher.di.LauncherModule
 import io.imhungry.maps.di.MapsModule
 import io.imhungry.notifications.di.NotificationModule
 import io.imhungry.restaurantLists.di.RestaurantListsModule
@@ -19,9 +20,10 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AndroidInjectionModule::class,
-        AppModule::class,
-        RoomModule::class,
         ViewModelModule::class,
+        AppModule::class,
+        LauncherModule::class,
+        RoomModule::class,
         MapsModule::class,
         HomeModule::class,
         NotificationModule::class,

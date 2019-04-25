@@ -10,10 +10,12 @@ import io.imhungry.R
 import io.imhungry.login.AuthFailureCallback
 import io.imhungry.login.handleLoginActivityResult
 import io.imhungry.login.launchLoginActivity
+import javax.inject.Inject
 
 abstract class BaseActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 
-    private val firebaseAuth by lazy { FirebaseAuth.getInstance() }
+    @Inject
+    lateinit var firebaseAuth: FirebaseAuth
 
     private val currentAppTheme by lazy(::getAppThemeFromPreferences)
 

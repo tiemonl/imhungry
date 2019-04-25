@@ -1,6 +1,7 @@
 package io.imhungry.common.di
 
 import android.app.Application
+import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -13,4 +14,7 @@ class AppModule(private val app: Application) {
 
     @Provides
     fun provideContext(app: Application) = app.applicationContext
+
+    @Provides
+    fun provideFirebaseAuth() = FirebaseAuth.getInstance()
 }

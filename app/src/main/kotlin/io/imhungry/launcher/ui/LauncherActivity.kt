@@ -6,14 +6,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import io.imhungry.R
+import io.imhungry.common.ui.BaseActivity
 import io.imhungry.home.ui.HomeActivity
 import io.imhungry.login.AuthFailureCallback
 import io.imhungry.login.handleLoginActivityResult
 import io.imhungry.login.launchLoginActivity
 
-class LauncherActivity : AppCompatActivity() {
-
-    private val firebaseAuth by lazy { FirebaseAuth.getInstance() }
+class LauncherActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
