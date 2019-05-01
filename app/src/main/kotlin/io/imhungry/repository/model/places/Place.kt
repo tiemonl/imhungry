@@ -6,6 +6,7 @@ import java.net.URL
 data class Place(
     val placeId: String,
     val location: LatLng,
+    val distance: Double,
     val iconUrl: URL,
     val name: String,
     val isOpen: Boolean,
