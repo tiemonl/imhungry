@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -11,84 +12,38 @@ import io.imhungry.R
 import io.imhungry.common.di.ViewModelFactory
 import io.imhungry.common.ui.NavigationActivity
 import io.imhungry.home.ui.adapters.HomeCardAdapter
-import io.imhungry.home.ui.adapters.RestaurantHomeCardProvider
 import io.imhungry.home.vm.HomeViewModel
 import io.imhungry.settings.SettingsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
-import kotlin.math.round
-import kotlin.random.Random
 
 class HomeActivity : NavigationActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private lateinit var homeViewModel: HomeViewModel
-
-    val rand = Random(hashCode())
+    private val homeViewModel by lazy { ViewModelProviders.of(this, viewModelFactory)[HomeViewModel::class.java] }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        homeViewModel = ViewModelProviders.of(this, viewModelFactory)[HomeViewModel::class.java]
-
         cardList.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        val r = ArrayList<ArrayList<String>>()
-
-        var places = ArrayList<String>(
-            listOf(
-                "Wendy's",
-                "Arby's",
-                "Outback",
-                "McDonalds's",
-                "Cane's",
-                "Hot Tin Roof",
-                "Pizza Hut"
-            )
-        )
-
-        val groups = ArrayList<String>(
-            listOf(
-                "Nearby",
-                "Good Ratings",
-                "Sit Down",
-                "Recently Viewed",
-                "Visited by friends",
-                "Fast",
-                "Drinks"
-            )
-        )
-
         val adapter = HomeCardAdapter(this.applicationContext)
         cardList.adapter = adapter
 
-        for (group_name in groups) {
-            val p = ArrayList<RestaurantHomeCardProvider>()
+        homeViewModel.nearbyLiveData.observe(this, Observer {
+            adapter.addList("Nearby", it)
+        })
 
-            for (place in places)
-                p.add(DummyCard(place, rand.nextDouble(10.0), rand.nextDouble(5.0) + 1))
+        homeViewModel.highestRatingsLiveData.observe(this, Observer {
+            adapter.addList("Good Ratings", it)
 
-            p.shuffle()
-
-            adapter.addList(group_name, p)
-        }
-    }
-
-    class DummyCard(private val name: String, private val dist: Double, private val rating: Double) :
-        RestaurantHomeCardProvider {
-        override fun getName(): String {
-            return name
-        }
-
-        override fun getDisplayDistanceFromCurrentLocation(): String {
-            return (round(dist * 100) / 100).toString() + " miles"
-        }
-
-        override fun getRating(numStars: Int): Float {
-            return rating.toFloat()
-        }
-
+            adapter.addList("Sit Down", it.shuffled())
+            adapter.addList("Recently Viewed", it.shuffled())
+            adapter.addList("Visited by friends", it.shuffled())
+            adapter.addList("Fast", it.shuffled())
+            adapter.addList("Drinks", it.shuffled())
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
