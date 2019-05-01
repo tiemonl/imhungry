@@ -1,8 +1,8 @@
-package io.imhungry.firebase.repository
+package io.imhungry.repository.firebase.repository
 
 import com.google.firebase.firestore.FirebaseFirestore
-import io.imhungry.firebase.model.user.FirebaseUser
-import io.imhungry.firebase.model.user.privacy.FirebasePrivacyConfig
+import io.imhungry.repository.firebase.model.user.FirebaseUser
+import io.imhungry.repository.common.model.user.privacy.PrivacyConfig
 import javax.inject.Inject
 
 class FirebaseUserRepository @Inject constructor(
@@ -22,7 +22,7 @@ class FirebaseUserRepository @Inject constructor(
     suspend fun updateUsername(uid: String, username: String) =
         performFieldUpdate(uid, FirebaseUser::username.name, username)
 
-    suspend fun updatePrivacy(uid: String, privacy: FirebasePrivacyConfig) =
+    suspend fun updatePrivacy(uid: String, privacy: PrivacyConfig) =
         performFieldUpdate(uid, FirebaseUser::privacy.name, privacy)
 
     companion object {
