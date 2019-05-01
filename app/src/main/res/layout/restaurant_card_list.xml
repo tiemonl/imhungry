@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/restaurantListTitle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_width="match_parent" android:orientation="vertical">
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/restaurantListTitle"
-              android:gravity="center"
-              android:textSize="25dp"
-              android:textColor="@color/colorPrimaryDark"
-              android:layout_height="wrap_content"
-              android:layout_width="match_parent"/>
-    <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-                                               android:id="@+id/restaurantList"
-                                               android:layout_height="wrap_content"
-                                               android:layout_width="match_parent"/>
+        android:layout_marginStart="8dp"
+        android:gravity="start"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="25dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/restaurantList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>
