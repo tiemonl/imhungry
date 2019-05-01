@@ -1,8 +1,8 @@
-package io.imhungry.firebase.repository
+package io.imhungry.repository.firebase.repository
 
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
-import io.imhungry.firebase.model.places.FirebaseVisit
+import io.imhungry.repository.firebase.model.places.FirebaseVisit
 import javax.inject.Inject
 
 class FirebaseVisitRepository @Inject constructor(
