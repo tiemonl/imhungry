@@ -1,4 +1,4 @@
-package io.imhungry.firebase.di
+package io.imhungry.repository.firebase.di
 
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
