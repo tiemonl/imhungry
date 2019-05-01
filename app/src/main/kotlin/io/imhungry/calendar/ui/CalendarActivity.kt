@@ -8,8 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import io.imhungry.R
 import org.threeten.bp.LocalDate
 import org.threeten.bp.ZoneId
+import io.imhungry.common.ui.NavigationActivity
 
-class CalendarActivity : AppCompatActivity() {
+class CalendarActivity : NavigationActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
