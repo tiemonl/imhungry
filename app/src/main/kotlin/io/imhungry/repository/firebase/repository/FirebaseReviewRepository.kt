@@ -1,8 +1,8 @@
-package io.imhungry.firebase.repository
+package io.imhungry.repository.firebase.repository
 
 import com.google.firebase.firestore.FirebaseFirestore
-import io.imhungry.firebase.model.places.FirebaseReview
-import io.imhungry.firebase.model.user.FirebaseUser
+import io.imhungry.repository.firebase.model.places.FirebaseReview
+import io.imhungry.repository.firebase.model.user.FirebaseUser
 import javax.inject.Inject
 
 class FirebaseReviewRepository @Inject constructor(
