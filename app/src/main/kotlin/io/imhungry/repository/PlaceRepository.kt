@@ -1,5 +1,6 @@
 package io.imhungry.repository
 
+import com.google.maps.android.SphericalUtil
 import com.google.maps.model.LatLng
 import com.google.maps.model.PlaceDetails
 import com.google.maps.model.PlacesSearchResult
@@ -11,13 +12,14 @@ class PlaceRepository @Inject constructor(
     private val placesRepo: PlacesApiRepository
 ) {
 
-    suspend fun getNearby(location: LatLng) = placesRepo.getNearby(location).await().map(::mapPlace)
+    suspend fun getNearby(location: LatLng) = placesRepo.getNearby(location).await().map { mapPlace(location, it) }
 
-    suspend fun getPlace(id: String) = mapPlaceDetails(placesRepo.getDetails(id).await())
+    suspend fun getPlace(location: LatLng, id: String) = mapPlaceDetails(location, placesRepo.getDetails(id).await())
 
-    private fun mapPlaceDetails(placeDetails: PlaceDetails) = Place(
+    private fun mapPlaceDetails(location: LatLng, placeDetails: PlaceDetails) = Place(
         placeDetails.placeId,
         placeDetails.geometry.location,
+        getDistance(placeDetails.geometry.location, location),
         placeDetails.icon,
         placeDetails.name,
         placeDetails.openingHours?.openNow ?: false,
@@ -27,9 +29,10 @@ class PlaceRepository @Inject constructor(
         placeDetails.vicinity
     )
 
-    private fun mapPlace(placeResult: PlacesSearchResult) = Place(
+    private fun mapPlace(location: LatLng, placeResult: PlacesSearchResult) = Place(
         placeResult.placeId,
         placeResult.geometry.location,
+        getDistance(placeResult.geometry.location, location),
         placeResult.icon,
         placeResult.name,
         placeResult.openingHours?.openNow ?: false,
@@ -38,4 +41,9 @@ class PlaceRepository @Inject constructor(
         placeResult.photos.map { photo -> photo.photoReference },
         placeResult.vicinity
     )
+
+    private fun getDistance(location: LatLng, latLng: LatLng) = SphericalUtil.computeDistanceBetween(
+        com.google.android.gms.maps.model.LatLng(location.lat, location.lng),
+        com.google.android.gms.maps.model.LatLng(latLng.lat, latLng.lng)
+    ) * 0.000621
 }

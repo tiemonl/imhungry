@@ -3,6 +3,7 @@ package io.imhungry.repository.places
 import com.google.maps.GeoApiContext
 import com.google.maps.PlacesApi
 import com.google.maps.model.LatLng
+import com.google.maps.model.PlaceType
 import com.google.maps.model.RankBy
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +21,7 @@ class PlacesApiRepository @Inject constructor(
     fun getNearby(location: LatLng) = scope.async {
         PlacesApi.nearbySearchQuery(geoApiContext, location)
             .rankby(RankBy.DISTANCE)
+            .type(PlaceType.RESTAURANT)
             .custom("fields", "*").await().results
     }
 
