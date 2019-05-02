@@ -17,7 +17,7 @@ class CalendarActivity : NavigationActivity() {
         setContentView(R.layout.activity_calendar)
 
         val calendarView = findViewById<CalendarView>(R.id.calendarView)
-        calendarView?.setOnDateChangeListener { _, year, month, dayOfMonth ->git st
+        calendarView?.setOnDateChangeListener { _, year, month, dayOfMonth ->
             val beginTime = Calendar.getInstance()
             beginTime.set(year, month, dayOfMonth, 12, 0)
             val endTime = Calendar.getInstance()
