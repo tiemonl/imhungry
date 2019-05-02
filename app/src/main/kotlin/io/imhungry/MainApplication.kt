@@ -9,7 +9,6 @@ import dagger.android.HasActivityInjector
 import io.imhungry.common.di.AppComponent
 import io.imhungry.common.di.AppModule
 import io.imhungry.common.di.DaggerAppComponent
-import io.imhungry.room.di.RoomModule
 import javax.inject.Inject
 
 class MainApplication : Application(), HasActivityInjector {
